@@ -7,6 +7,10 @@ int32_t createAProperHashcode(T & obj) {
 }
 
 int main() {
-	std::cout << "Via SmartGit" << std::endl;
+	std::cout << "Let us start!" << "\n";
+	std::cout << "Testing Hashcode function" << std::endl;
+	std::pair<std::string, std::string> strings = { "firstString", "secondString" };
+	assert(createAProperHashcode(strings.first) != createAProperHashcode(strings.second));
+	std::cout << "Everything works!" << std::endl;
 	return 0;
 }
