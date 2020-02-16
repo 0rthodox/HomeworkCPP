@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-#include <vector>
 
 template <typename T>
 int32_t createAProperHashcode(T & obj) {
