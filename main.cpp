@@ -19,7 +19,7 @@ int main() {
 
 	std::cout << "Thus we can allocate a very small vector" << std::endl;
 	std::vector<int64_t> smallVector(12884901888, static_cast<int64_t>(1));
-	std::cout << "Vector allocated successfully!" << std::endl;
+	std::cout << "Vector allocated successfully! (Or not?)" << std::endl;
 
 	return 0;
 }
