@@ -17,7 +17,7 @@ int main() {
 	std::cout << "This line will be definitely printed" << "\n"
 		<< "and this line too" << std::endl;
 
-	std::cout << "Thus we can allocate a very small vector" << std::endl;
+	std::cout << "Thus we can allocate a small vector" << std::endl;
 	std::vector<int64_t> smallVector(12884901888, static_cast<int64_t>(1));
 
 	return 0;
