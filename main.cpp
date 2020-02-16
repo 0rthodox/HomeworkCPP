@@ -12,5 +12,9 @@ int main() {
 	std::pair<std::string, std::string> strings = { "firstString", "secondString" };
 	assert(createAProperHashcode(strings.first) != createAProperHashcode(strings.second));
 	std::cout << "Everything works!" << std::endl;
+
+	std::cout << "This line will be definitely printed" << "\n"
+		<< "and this line too" << std::endl;
+
 	return 0;
 }
