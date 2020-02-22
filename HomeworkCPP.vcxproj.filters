@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="uniqueCasts.h">
+    <ClInclude Include="Sem2\uniqueCasts.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
