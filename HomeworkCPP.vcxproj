@@ -19,10 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="uniqueCast.cpp" />
+    <ClInclude Include="Sem2\uniqueCasts.h" />
+    <ClInclude Include="Sem2\vectorBinarySearch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem2\uniqueCasts.h" />
+    <ClCompile Include="Sem2\testVectorSearch.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
