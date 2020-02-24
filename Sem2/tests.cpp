@@ -7,14 +7,12 @@
 #include <memory>
 #include "timer.h"
 #include "uniqueCasts.h"
-#include <set>
 #include "SmartTree.h"
 
 using ms = std::chrono::milliseconds;
 
 struct Base
 {
-	int a;
 	virtual std::string f() const { return "Base"; }
 	virtual ~Base() {}
 };
