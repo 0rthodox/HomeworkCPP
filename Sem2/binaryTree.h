@@ -1,10 +1,12 @@
 #pragma once
 #include <memory>
 #include <iostream>
+#include <vector>
 
 template <typename Val>
 class TreeNode : public std::enable_shared_from_this<TreeNode<Val>> {
 public:
+	TreeNode() {}
 	TreeNode(const Val & value) : value(value) {}
 	void setParent(std::shared_ptr<TreeNode<Val>> parent) {
 		this->parent = parent;
@@ -21,11 +23,14 @@ public:
 	Val getValue() {
 		return value;
 	}
-	std::shared_ptr<TreeNode<Val>> getRight() {
-		return right.lock();
+	void setValue(Val newValue) {
+		value = newValue;
 	}
-	std::shared_ptr<TreeNode<Val>> getLeft() {
-		return left.lock();
+	TreeNode<Val> * getRight() {
+		return right.lock().get();
+	}
+	TreeNode<Val> * getLeft() {
+		return left.lock().get();
 	}
 	bool hasLeft() {
 		return(bool(left.lock()));
@@ -34,7 +39,25 @@ public:
 		return(bool(right.lock()));
 	}
 	~TreeNode() {
-		std::cout << "Destructing node" << std::endl;
+		std::cout << "Destructing node with value = " << value << std::endl;
+	}
+	void link(std::shared_ptr<TreeNode<Val>> child) {
+		if (child->getValue() <= getValue()) {
+			if (hasLeft()) {
+				getLeft()->link(child);
+			}
+			else {
+				setLeft(child);
+			}
+		}
+		else {
+			if (hasRight()) {
+				getRight()->link(child);
+			}
+			else {
+				setRight(child);
+			}
+		}
 	}
 private:
 	std::shared_ptr<TreeNode<Val>> parent;
@@ -47,38 +70,22 @@ template <typename Val>
 class BinaryTree {
 private:
 	int size;
-	std::shared_ptr<TreeNode<Val>> top;
+	std::vector<std::shared_ptr<TreeNode<Val>>> ptrs;
+	std::vector<TreeNode<Val>> vals;
 public:
-	BinaryTree() : size(0), {}
+	BinaryTree() : size(0) {}
 	~BinaryTree() {
 		std::cout << "Destructing tree" << std::endl;
 	}
-	void add(Val value) {
-		TreeNode<Val> newNode(value);
-		std::shared_ptr<TreeNode<Val>> newShared(&newNode);
-		if (size++) {
-			link(top, newShared);
-		} else {
-			top = newShared;
-		}
-	}
-
-private:
-	void link(std::shared_ptr<TreeNode<Val>> parent, std::shared_ptr<TreeNode<Val>> child) {
-		if (child->getValue() <= parent->getValue()) {
-			if (parent->hasLeft()) {
-				link(parent->getLeft(), child);
-			} else {
-				parent->setLeft(child);
-			}
-		}
-		else if (child->getValue() > parent->getValue()) {
-			if (parent->hasRight()) {
-				link(parent->getRight(), child);
-			}
-			else {
-				parent->setRight(child);				
-			}
-		}
+	void add(const Val & value) {
+		std::cout << "Adding value " << value << std::endl;
+		vals.push_back(TreeNode<Val>(value));
+		ptrs.push_back(std::shared_ptr<TreeNode<Val>>(&(vals.back())));
+		/*if (size++) {
+			ptrs[0]->link(ptrs.back());
+		}*/
+		std::cout << "top value = " << ptrs[0]->getValue() << std::endl;
+		std::cout << "shared pointers: " << ptrs.size() << std::endl;
+		std::cout << "values: " << vals.size()  << "\n" << std::endl;
 	}
 };
