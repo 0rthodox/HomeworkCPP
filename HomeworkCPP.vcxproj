@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem2\binaryTree.h" />
     <ClInclude Include="Sem2\SmartTree.h" />
     <ClInclude Include="Sem2\timer.h" />
     <ClInclude Include="Sem2\uniqueCasts.h" />

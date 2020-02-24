@@ -57,7 +57,7 @@ int main() {
 
 	std::cout << "\nTesting task 2\n" << std::endl;
 	{
-		SmartTree tree;
+		SmartTree<int> tree;
 		tree.add(231);
 		tree.add(-46);
 		tree.add(1);

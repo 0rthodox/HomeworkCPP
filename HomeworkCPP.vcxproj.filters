@@ -24,9 +24,6 @@
     <ClInclude Include="Sem2\vectorBinarySearch.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Sem2\binaryTree.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="SmartList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
