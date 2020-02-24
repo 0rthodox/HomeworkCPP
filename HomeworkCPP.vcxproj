@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sem2\binaryTree.h" />
+    <ClInclude Include="Sem2\SmartTree.h" />
     <ClInclude Include="Sem2\timer.h" />
     <ClInclude Include="Sem2\uniqueCasts.h" />
     <ClInclude Include="Sem2\vectorBinarySearch.h" />
+    <ClInclude Include="SmartList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sem2\tests.cpp" />

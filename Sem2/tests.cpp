@@ -8,7 +8,7 @@
 #include "timer.h"
 #include "uniqueCasts.h"
 #include <set>
-#include "binaryTree.h"
+#include "SmartTree.h"
 
 using ms = std::chrono::milliseconds;
 
@@ -56,7 +56,14 @@ int main() {
 	}
 
 	std::cout << "\nTesting task 2\n" << std::endl;
-	BinaryTree<int> tree;
+	{
+		SmartTree tree;
+		tree.add(231);
+		tree.add(-46);
+		tree.add(1);
+		tree.read();
+	}
+	std::cout << "Tree deleted successfully" << std::endl;
 		
 	std::cout << "\nTesting task 3\n" << std::endl;
 
