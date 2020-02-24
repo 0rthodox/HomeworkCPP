@@ -9,12 +9,21 @@
 template <typename T>
 class SmartTree {
 	class Node : public std::enable_shared_from_this<Node> {
-	public:
+		T value;
 		std::weak_ptr<Node> parent;
+		bool isRoot;
 		std::shared_ptr<Node> lChild;
 		std::shared_ptr<Node> rChild;
-		bool isRoot;
-		T value;
+	public:
+		T getValue() {
+			return value;
+		}
+		std::shared_ptr<Node>& getLChild() {
+			return lChild;
+		}
+		std::shared_ptr<Node>& getRChild() {
+			return rChild;
+		}
 
 		Node(T val, std::weak_ptr<Node> parent, bool isRoot = 0) : value(val), isRoot(isRoot) {}
 		void lLink(T val) {
@@ -36,23 +45,25 @@ class SmartTree {
 				std::cout << value << std::endl;
 			}
 		}
+		~Node() noexcept {}
 	};
+private:
+	Node root;
 public:
 	SmartTree() : root(0, std::weak_ptr<Node>(), 1) {}
-	Node root;
 	void add(const T& val) {
 		auto currentPtr = &root;
 		while (1) {
-			if (val <= currentPtr->value) {
-				if (currentPtr->lChild) {
-					currentPtr = currentPtr->lChild.get();
+			if (val <= currentPtr->getValue()) {
+				if (currentPtr->getLChild()) {
+					currentPtr = currentPtr->getLChild().get();
 				} else {
 					currentPtr->lLink(val);
 					break;
 				}
 			} else {
-				if (currentPtr->rChild) {
-					currentPtr = currentPtr->rChild.get();
+				if (currentPtr->getRChild()) {
+					currentPtr = currentPtr->getRChild().get();
 				}
 				else {
 					currentPtr->rLink(val);
@@ -62,8 +73,11 @@ public:
 		}
 	}
 	void read() {
+		std::cout << "Tree contains: " << "\n";
 		root.read();
+		std::cout << std::endl;
 	}
+	~SmartTree() noexcept {}
 };
 
 #endif _SMART_TREE_
