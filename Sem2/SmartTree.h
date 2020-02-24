@@ -25,12 +25,12 @@ class SmartTree {
 			return rChild;
 		}
 
-		Node(T val, std::weak_ptr<Node> parent, bool isRoot = 0) : value(val), isRoot(isRoot) {}
-		void lLink(T val) {
+		Node(const T& val, std::weak_ptr<Node> parent, bool isRoot = 0) : value(val), isRoot(isRoot) {}
+		void lLink(const T& val) {
 			Node n(val, std::enable_shared_from_this<Node>::weak_from_this());
 			lChild = std::make_shared<Node>(n);
 		}
-		void rLink(T val) {
+		void rLink(const T& val) {
 			Node n(val, std::enable_shared_from_this<Node>::weak_from_this());
 			rChild = std::make_shared<Node>(n);
 		}
