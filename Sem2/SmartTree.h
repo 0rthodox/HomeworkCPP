@@ -15,13 +15,13 @@ class SmartTree {
 		std::shared_ptr<Node> lChild;
 		std::shared_ptr<Node> rChild;
 	public:
-		T getValue() {
+		const T getValue() const {
 			return value;
 		}
-		std::shared_ptr<Node>& getLChild() {
+		std::shared_ptr<Node> getLChild() {
 			return lChild;
 		}
-		std::shared_ptr<Node>& getRChild() {
+		std::shared_ptr<Node> getRChild() {
 			return rChild;
 		}
 
@@ -45,7 +45,7 @@ class SmartTree {
 				std::cout << value << std::endl;
 			}
 		}
-		~Node() noexcept {}
+		~Node() = default;
 	};
 private:
 	Node root;
@@ -77,7 +77,7 @@ public:
 		root.read();
 		std::cout << std::endl;
 	}
-	~SmartTree() noexcept {}
+	~SmartTree() = default;
 };
 
 #endif _SMART_TREE_

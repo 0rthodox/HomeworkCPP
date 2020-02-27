@@ -71,19 +71,19 @@ int main() {
 
 		{
 			for (auto element : testVector) {
-				assert(*vectorBinarySearch(testVector, element) == element);
+				assert(vectorBinarySearch(testVector, element) == true);
 			}
 			std::cout << "Existing elements OK" << std::endl;
 		}
 
 		{
-			assert(*vectorBinarySearch(testVector, 10) == 7);
+			assert(vectorBinarySearch(testVector, 10) == false);
 			std::cout << "Out of bounds OK" << std::endl;
 		}
 
 		{
 			testVector[3] = 3;
-			assert(*vectorBinarySearch(testVector, 4) == 3);
+			assert(vectorBinarySearch(testVector, 4) == false);
 			std::cout << "Non-existing element OK" << std::endl;
 		}
 
@@ -93,15 +93,41 @@ int main() {
 
 	{
 		std::cout << "One of these numbers should approximately be a sum of other two" << std::endl;
-		Timer<ms> wrappingTimer, mainTimer;
+		MultiTimer<ms> wrappingTimer, mainTimer;
 		std::string s(100000000, 's');
 		{
 			mainTimer.pause();
-			Timer<ms> wrappedTimer;
+			MultiTimer<ms> wrappedTimer;
 			std::string f(100000000, 'f');
 			mainTimer.resume();
 		}
 		std::string f(100000000, 'f');
+	}
+
+	std::cout << "\nTesting task 3*\n" << std::endl;
+
+	{
+		std::vector<int> testVector(7);
+		std::iota(testVector.begin(), testVector.end(), 1);
+
+		{
+			for (auto element : testVector) {
+				assert(recursiveSearch(testVector, element) == true);
+			}
+			std::cout << "Existing elements OK" << std::endl;
+		}
+
+		{
+			assert(recursiveSearch(testVector, 10) == false);
+			std::cout << "Out of bounds OK" << std::endl;
+		}
+
+		{
+			testVector[3] = 3;
+			assert(recursiveSearch(testVector, 4) == false);
+			std::cout << "Non-existing element OK" << std::endl;
+		}
+
 	}
 
 }
