@@ -23,10 +23,11 @@
     <ClInclude Include="Sem2\timer.h" />
     <ClInclude Include="Sem2\uniqueCasts.h" />
     <ClInclude Include="Sem2\vectorBinarySearch.h" />
+    <ClInclude Include="Sem3\TupleIterate.h" />
     <ClInclude Include="SmartList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem2\tests.cpp" />
+    <ClCompile Include="Sem3\tests3.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

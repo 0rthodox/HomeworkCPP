@@ -30,9 +30,12 @@
     <ClInclude Include="Sem2\SmartTree.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Sem3\TupleIterate.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem2\tests.cpp">
+    <ClCompile Include="Sem3\tests3.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
