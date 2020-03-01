@@ -20,14 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sem2\SmartTree.h" />
-    <ClInclude Include="Sem2\timer.h" />
     <ClInclude Include="Sem2\uniqueCasts.h" />
     <ClInclude Include="Sem2\vectorBinarySearch.h" />
+    <ClInclude Include="Sem3\timer.h" />
     <ClInclude Include="Sem3\TupleIterate.h" />
     <ClInclude Include="SmartList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem3\tests3.cpp" />
+    <ClCompile Include="Sem3\testsVector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

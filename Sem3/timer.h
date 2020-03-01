@@ -24,6 +24,10 @@ public:
 		start = clock_t::now();
 		ticking = true;
 	}
+	auto getDuration() {
+		updateIfTicking();
+		return std::chrono::duration_cast<Accuracy>(time_periods).count();
+	}
 	~Timer() noexcept {
 		updateIfTicking();
 		std::cout << std::chrono::duration_cast<Accuracy>(time_periods).count() << std::endl;
