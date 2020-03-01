@@ -22,12 +22,15 @@
     <ClInclude Include="Sem2\SmartTree.h" />
     <ClInclude Include="Sem2\uniqueCasts.h" />
     <ClInclude Include="Sem2\vectorBinarySearch.h" />
+    <ClInclude Include="Sem3\RandomGenerator.h" />
+    <ClInclude Include="Sem3\task1.h" />
+    <ClInclude Include="Sem3\task2.h" />
     <ClInclude Include="Sem3\timer.h" />
     <ClInclude Include="Sem3\TupleIterate.h" />
     <ClInclude Include="SmartList.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem3\testsVector.cpp" />
+    <ClCompile Include="Sem3\tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

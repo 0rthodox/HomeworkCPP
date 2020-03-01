@@ -1,0 +1,75 @@
+Attempt 0
+    vector:        455
+     deque:       2197
+  list (m):       5870
+ flist (m):       1154
+     array:        509
+
+Attempt 1
+    vector:        490
+     deque:       2581
+  list (m):       5876
+ flist (m):       1091
+     array:        437
+
+Attempt 2
+    vector:        428
+     deque:       2054
+  list (m):       5558
+ flist (m):       1065
+     array:        448
+
+Attempt 3
+    vector:        428
+     deque:       2041
+  list (m):       5384
+ flist (m):       1098
+     array:        440
+
+Attempt 4
+    vector:        438
+     deque:       2061
+  list (m):       5553
+ flist (m):       1053
+     array:        429
+
+Attempt 5
+    vector:        423
+     deque:       1982
+  list (m):       5583
+ flist (m):       1109
+     array:        439
+
+Attempt 6
+    vector:        460
+     deque:       2166
+  list (m):       5680
+ flist (m):       1099
+     array:        456
+
+Attempt 7
+    vector:        439
+     deque:       2114
+  list (m):       5773
+ flist (m):       1110
+     array:        447
+
+Attempt 8
+    vector:        434
+     deque:       2118
+  list (m):       5616
+ flist (m):       1109
+     array:        455
+
+Attempt 9
+    vector:        461
+     deque:       2136
+  list (m):       5559
+ flist (m):       1083
+     array:        418
+
+Final Score:
+     array:          4
+    vector:          6
+Winner:
+vector

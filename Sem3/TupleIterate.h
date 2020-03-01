@@ -16,7 +16,7 @@ struct Iterate<End, End, Function, Args...> {
 };
 
 template <typename Function, typename... Args>
-constexpr void iterateThrough(const std::tuple<Args...>& tuple, Function function) {
+void iterateThrough(const std::tuple<Args...>& tuple, Function function) {
 	Iterate<0, sizeof...(Args), Function, Args...>::iterate(tuple, function);
 }
 

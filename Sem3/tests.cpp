@@ -1,9 +1,12 @@
 #include <tuple>
+#include <vector>
+#include <iostream>
 #include "TupleIterate.h"
 #include "timer.h"
 #include "RandomGenerator.h"
 #include "task2.h"
 #include "task1.h"
+
 
 
 void test3() {
@@ -16,6 +19,7 @@ void test3() {
 }
 
 int main() {
+
 	test3();
 	test2();
 	test1();	
