@@ -14,7 +14,7 @@ class Timer {
 	using duration_t = clock_t::duration;
 
 public:
-	Timer() : start(clock_t::now()), time_periods() {
+	Timer() : ticking(true), start(clock_t::now()), time_periods() {
 	}
 	void pause() {
 		updateIfTicking();

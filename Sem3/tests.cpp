@@ -13,7 +13,7 @@ void test3() {
 	std::cout << "Testing task 3" << std::endl;
 	{
 		auto testedTuple = std::make_tuple(3, "0rthodox", 'c');
-		iterateThrough(testedTuple, [](auto x) {
+		iterateThrough(testedTuple, [](const auto& x) {
 			std::cout << x << std::endl; });
 	}
 }
