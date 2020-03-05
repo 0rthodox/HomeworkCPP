@@ -1,75 +1,75 @@
 Attempt 0
-    vector:        528
-     deque:       2416
-  list (m):       7543
- flist (m):       1771
-     array:        743
+    vector:         57
+     deque:        140
+  list (m):        129
+ flist (m):        148
+     array:         55
 
 Attempt 1
-    vector:        649
-     deque:       3303
-  list (m):       9118
- flist (m):       1798
-     array:        707
+    vector:         52
+     deque:        132
+  list (m):        126
+ flist (m):        151
+     array:         53
 
 Attempt 2
-    vector:        702
-     deque:       3577
-  list (m):       9221
- flist (m):       1845
-     array:        766
+    vector:         51
+     deque:        136
+  list (m):        143
+ flist (m):        181
+     array:         51
 
 Attempt 3
-    vector:        848
-     deque:       3894
-  list (m):       9143
- flist (m):       1685
-     array:        650
+    vector:         60
+     deque:        135
+  list (m):        128
+ flist (m):        156
+     array:         51
 
 Attempt 4
-    vector:        682
-     deque:       3447
-  list (m):       9578
- flist (m):       1877
-     array:        687
+    vector:         51
+     deque:        157
+  list (m):        130
+ flist (m):        153
+     array:         51
 
 Attempt 5
-    vector:        825
-     deque:       3478
-  list (m):       9380
- flist (m):       1610
-     array:        708
+    vector:         51
+     deque:        132
+  list (m):        148
+ flist (m):        168
+     array:         57
 
 Attempt 6
-    vector:        739
-     deque:       2958
-  list (m):       9065
- flist (m):       1760
-     array:        736
+    vector:         59
+     deque:        129
+  list (m):        126
+ flist (m):        162
+     array:         55
 
 Attempt 7
-    vector:        706
-     deque:       3332
-  list (m):       9647
- flist (m):       1786
-     array:        752
+    vector:         54
+     deque:        131
+  list (m):        128
+ flist (m):        152
+     array:         54
 
 Attempt 8
-    vector:        653
-     deque:       2988
-  list (m):       6643
- flist (m):       1991
-     array:        833
+    vector:         51
+     deque:        129
+  list (m):        145
+ flist (m):        143
+     array:         52
 
 Attempt 9
-    vector:        846
-     deque:       3924
-  list (m):      10461
- flist (m):       1823
-     array:        769
+    vector:         51
+     deque:        129
+  list (m):        132
+ flist (m):        138
+     array:         51
 
 Final Score:
-     array:          4
-    vector:          6
+    vector:          3
+     array:          7
 Winner:
-vector
+array
