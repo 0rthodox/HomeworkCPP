@@ -1,0 +1,7 @@
+Collisions in my hash function: 0
+Collisions in standard hash function: 0
+Collisions in my fast hash function: 0
+Assertion successful
+My hash function's time: 1475
+Standard hash function's time: 10
+My fast hash function's time: 13
