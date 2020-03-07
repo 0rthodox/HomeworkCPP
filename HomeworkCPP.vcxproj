@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClInclude Include="Sem3\RandomGenerator.h" />
     <ClInclude Include="Sem3\timer.h" />
+    <ClInclude Include="Sem4\Catalogue.h" />
     <ClInclude Include="Sem4\hashFloating.h" />
     <ClInclude Include="Sem4\task1.h" />
     <ClInclude Include="Sem4\task2.h" />
+    <ClInclude Include="Sem4\task5.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sem4\tests.cpp" />

@@ -1,0 +1,10 @@
+Spamming to: teacher Makarov
+
+Printed data:
+rector Kudryavtsev: 2
+student Popov: 1
+teacher Makarov: 0
+
+This phone belongs to MIPT rectorate. Its owner is rector Kudryavtsev.
+Yours Sincerely,
+Detective.
