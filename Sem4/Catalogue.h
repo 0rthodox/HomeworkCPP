@@ -62,7 +62,7 @@ class Catalogue {
 		>> data;
 public:
 	auto randomPhoneNumber() const {
-		RandomGenerator<size_t> randomGenerator(0, data.size());
+		RandomGenerator<size_t> randomGenerator(0, data.size() == 0 ? data.size() : data.size() - 1);
 		return &data.get<Record::RA>()[0 + randomGenerator.rand()];
 	}
 	auto getOrderedData() const {
