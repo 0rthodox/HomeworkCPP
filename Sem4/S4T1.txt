@@ -1,160 +1,259 @@
+Testing small values (muSec)
+
+Testing 50 numbers:
+Set's time: 170
+Vector's time: 90
+Array's time: 110
+
+Testing 100 numbers:
+Set's time: 429
+Vector's time: 191
+Array's time: 208
+
+Testing 200 numbers:
+Set's time: 958
+Vector's time: 239
+Array's time: 171
+
+Testing 300 numbers:
+Set's time: 819
+Vector's time: 348
+Array's time: 469
+
+Testing 400 numbers:
+Set's time: 1265
+Vector's time: 694
+Array's time: 625
+
+Testing 500 numbers:
+Set's time: 1745
+Vector's time: 776
+Array's time: 499
+
+Testing 1000 numbers:
+Set's time: 4361
+Vector's time: 1972
+Array's time: 1812
+
+Testing 2000 numbers:
+Set's time: 7943
+Vector's time: 3551
+Array's time: 3759
+
+Testing 3000 numbers:
+Set's time: 11339
+Vector's time: 5589
+Array's time: 4391
+
+Testing 5000 numbers:
+Set's time: 16658
+Vector's time: 8992
+Array's time: 8419
+
+Testing 10000 numbers:
+Set's time: 31382
+Vector's time: 16972
+Array's time: 19536
+
+Winners:
+array: 6 times of 11
+
+
+Winners:
+vector: 5 times of 11
+
 Testing big values (mSec)
 
 Testing 20000 numbers:
-Set's time: 288
-Vector's time: 169
-Array's time: 152
+Set's time: 90
+Vector's time: 41
+Array's time: 33
 
 Testing 30000 numbers:
-Set's time: 414
-Vector's time: 249
-Array's time: 234
+Set's time: 96
+Vector's time: 56
+Array's time: 49
 
 Testing 40000 numbers:
-Set's time: 552
-Vector's time: 336
-Array's time: 303
+Set's time: 124
+Vector's time: 81
+Array's time: 72
 
 Testing 50000 numbers:
-Set's time: 653
-Vector's time: 427
-Array's time: 378
+Set's time: 174
+Vector's time: 96
+Array's time: 89
 
 Testing 60000 numbers:
-Set's time: 872
-Vector's time: 535
-Array's time: 469
+Set's time: 188
+Vector's time: 124
+Array's time: 104
 
 Testing 70000 numbers:
-Set's time: 905
-Vector's time: 644
-Array's time: 574
+Set's time: 245
+Vector's time: 141
+Array's time: 121
 
 Testing 80000 numbers:
-Set's time: 1023
-Vector's time: 700
-Array's time: 676
+Set's time: 237
+Vector's time: 157
+Array's time: 142
 
 Testing 90000 numbers:
-Set's time: 1149
-Vector's time: 802
-Array's time: 715
+Set's time: 280
+Vector's time: 178
+Array's time: 159
 
 Testing 100000 numbers:
-Set's time: 1257
-Vector's time: 910
-Array's time: 830
+Set's time: 302
+Vector's time: 208
+Array's time: 176
 
 Testing 110000 numbers:
-Set's time: 1371
-Vector's time: 994
-Array's time: 886
+Set's time: 343
+Vector's time: 216
+Array's time: 191
 
 Testing 120000 numbers:
-Set's time: 1496
-Vector's time: 1104
-Array's time: 989
+Set's time: 359
+Vector's time: 244
+Array's time: 216
 
 Testing 130000 numbers:
-Set's time: 1619
-Vector's time: 1149
-Array's time: 1051
+Set's time: 383
+Vector's time: 255
+Array's time: 230
 
 Testing 140000 numbers:
-Set's time: 1754
-Vector's time: 1258
-Array's time: 1135
+Set's time: 414
+Vector's time: 282
+Array's time: 256
 
 Testing 150000 numbers:
-Set's time: 1860
-Vector's time: 1343
-Array's time: 1192
+Set's time: 441
+Vector's time: 294
+Array's time: 262
 
 Testing 160000 numbers:
-Set's time: 1988
-Vector's time: 1451
-Array's time: 1286
+Set's time: 459
+Vector's time: 325
+Array's time: 289
 
 Testing 170000 numbers:
-Set's time: 2100
-Vector's time: 1534
-Array's time: 1418
+Set's time: 498
+Vector's time: 348
+Array's time: 310
 
 Testing 180000 numbers:
-Set's time: 2179
-Vector's time: 1634
-Array's time: 1462
+Set's time: 516
+Vector's time: 364
+Array's time: 325
 
 Testing 190000 numbers:
-Set's time: 2266
-Vector's time: 1769
-Array's time: 1587
+Set's time: 587
+Vector's time: 385
+Array's time: 341
 
 Testing 200000 numbers:
-Set's time: 2390
-Vector's time: 1824
-Array's time: 1632
+Set's time: 591
+Vector's time: 424
+Array's time: 379
 
 Winners:
 array: 19 times of 19
 
-Testing small values (muSec)
+Testing very big values (mSec)
 
-Testing 50 numbers:
-Set's time: 534
-Vector's time: 210
-Array's time: 157
+Testing 300000 numbers:
+Set's time: 851
+Vector's time: 601
+Array's time: 549
 
-Testing 100 numbers:
-Set's time: 1081
-Vector's time: 473
-Array's time: 377
+Testing 400000 numbers:
+Set's time: 1132
+Vector's time: 780
+Array's time: 691
 
-Testing 200 numbers:
-Set's time: 2247
-Vector's time: 967
-Array's time: 773
+Testing 500000 numbers:
+Set's time: 1409
+Vector's time: 948
+Array's time: 842
 
-Testing 300 numbers:
-Set's time: 3557
-Vector's time: 1605
-Array's time: 1301
+Testing 1000000 numbers:
+Set's time: 2804
+Vector's time: 1828
+Array's time: 1634
 
-Testing 400 numbers:
-Set's time: 4821
-Vector's time: 2119
-Array's time: 1731
+Testing 1200000 numbers:
+Set's time: 3387
+Vector's time: 2238
+Array's time: 1971
 
-Testing 500 numbers:
-Set's time: 6110
-Vector's time: 2858
-Array's time: 2362
+Testing 1400000 numbers:
+Set's time: 3921
+Vector's time: 2598
+Array's time: 2304
 
-Testing 1000 numbers:
-Set's time: 12279
-Vector's time: 5999
-Array's time: 5064
+Testing 1600000 numbers:
+Set's time: 4460
+Vector's time: 3006
+Array's time: 2670
 
-Testing 2000 numbers:
-Set's time: 25405
-Vector's time: 13064
-Array's time: 11174
+Testing 1800000 numbers:
+Set's time: 5172
+Vector's time: 3363
+Array's time: 2909
 
-Testing 3000 numbers:
-Set's time: 40299
-Vector's time: 20453
-Array's time: 17611
+Testing 2000000 numbers:
+Set's time: 5568
+Vector's time: 3728
+Array's time: 3293
 
-Testing 5000 numbers:
-Set's time: 65741
-Vector's time: 36009
-Array's time: 31348
+Testing 2500000 numbers:
+Set's time: 7387
+Vector's time: 4743
+Array's time: 4152
 
-Testing 10000 numbers:
-Set's time: 133943
-Vector's time: 75923
-Array's time: 66486
+Testing 3000000 numbers:
+Set's time: 8394
+Vector's time: 5774
+Array's time: 5111
+
+Testing 4000000 numbers:
+Set's time: 11310
+Vector's time: 7110
+Array's time: 6235
+
+Testing 5000000 numbers:
+Set's time: 13995
+Vector's time: 9706
+Array's time: 8542
+
+Testing 6000000 numbers:
+Set's time: 17387
+Vector's time: 10774
+Array's time: 9445
+
+Testing 7000000 numbers:
+Set's time: 20246
+Vector's time: 11633
+Array's time: 10434
+
+Testing 8000000 numbers:
+Set's time: 19227
+Vector's time: 13358
+Array's time: 11717
+
+Testing 9000000 numbers:
+Set's time: 22003
+Vector's time: 16424
+Array's time: 13262
+
+Testing 10000000 numbers:
+Set's time: 24385
+Vector's time: 16950
+Array's time: 14778
 
 Winners:
-array: 11 times of 11
+array: 18 times of 18
 

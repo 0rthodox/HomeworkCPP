@@ -74,6 +74,31 @@ void testTask1() {
 	std::ofstream data;
 	data.open("Sem4/S4T1.txt");
 	//ctIterator<1000, 100000, 10, std::string, std::ofstream&>::ctIterate(testSetVectorArray<std::chrono::milliseconds, 1000>, data);
+
+	{
+		data << "Testing small values (muSec)" << std::endl;
+		std::vector<std::string> winners;
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 50>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 100>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 200>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 300>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 400>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 500>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 1000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 2000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 3000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 5000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::microseconds, 10000>(data));
+		std::map<std::string, int> results;
+		for (const auto& collection : winners) {
+			results[collection]++;
+		}
+		for (const auto& [collection, wins] : results) {
+			data << "\nWinners:\n";
+			data << collection << ": " << wins << " times of " << winners.size() << "\n" << std::endl;
+		}
+
+	}
 	{
 		data << "Testing big values (mSec)" << std::endl;
 		std::vector<std::string> winners;
@@ -106,19 +131,26 @@ void testTask1() {
 		}
 	}
 	{
-		data << "Testing small values (muSec)" << std::endl;
+		data << "Testing very big values (mSec)" << std::endl;
 		std::vector<std::string> winners;
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 50>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 100>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 200>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 300>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 400>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 500>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 1000>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 2000>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 3000>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 5000>(data));
-		winners.push_back(testSetVectorArray<std::chrono::microseconds, 10000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 300000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 400000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 500000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 1000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 1200000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 1400000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 1600000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 1800000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 2000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 2500000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 3000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 4000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 5000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 6000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 7000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 8000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 9000000>(data));
+		winners.push_back(testSetVectorArray<std::chrono::milliseconds, 10000000>(data));
 		std::map<std::string, int> results;
 		for (const auto& collection : winners) {
 			results[collection]++;
