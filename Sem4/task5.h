@@ -7,7 +7,7 @@
 class SpamCompany {
 public:
 	void spam(std::ofstream& data, const Catalogue& catalogue) {
-		data << "Spamming to: " << catalogue.randomPhoneNumber()->owner << std::endl;
+		data << "Spamming to: " << catalogue.randomPhoneNumber().owner << std::endl;
 	}
 };
 
