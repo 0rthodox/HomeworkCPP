@@ -1,0 +1,4 @@
+
+Totally 0 collisions
+of 10000000 hash calculations
+(0%)
