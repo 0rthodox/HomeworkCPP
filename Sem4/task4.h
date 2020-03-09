@@ -6,6 +6,7 @@
 #include <set>
 #include <iostream>
 #include <iomanip>
+#include "RandomGenerator.h"
 
 unsigned int RSHash(const char* str, unsigned int length)
 {
@@ -148,7 +149,7 @@ unsigned int APHash(const char* str, unsigned int length)
 	return hash;
 }
 
-void testStringHash(unsigned hasher (const char*, unsigned), size_t iterations, std::string path) {
+void testNumericStringHash(unsigned hasher (const char*, unsigned), size_t iterations, const std::string & path) {
 	std::set<size_t> hashes;
 	auto collisions = 0;
 	std::ofstream data;
@@ -156,6 +157,7 @@ void testStringHash(unsigned hasher (const char*, unsigned), size_t iterations, 
 	for (auto i = 0; i < iterations; ++i) {
 		auto string = std::to_string(i);
 		auto hash = hasher(string.c_str(), string.size());
+		printf("%s %d %d\n", string.c_str(), string.size(), hash);
 		if (!hashes.insert(hash).second) {
 			collisions++;
 			data << i << ' ' << collisions << '\n';
@@ -171,15 +173,51 @@ void testStringHash(unsigned hasher (const char*, unsigned), size_t iterations, 
 	std::cout << results.str() << std::endl;
 }
 
+template <typename ForwardIt>
+void testStringHash(unsigned hasher(const char*, unsigned), ForwardIt first, ForwardIt last, const std::string& path) {
+	std::set<size_t> hashes;
+	auto collisions = 0;
+	std::ofstream data;
+	data.open(path);
+	auto i = 0u;
+	for (auto it = first; it != last; ++it) {
+		auto string = *it;
+		auto hash = hasher(string.c_str(), string.size());
+		//printf("%s %d %d\n", string.c_str(), string.size(), hash);
+		++i;
+		if (!hashes.insert(hash).second) {
+			collisions++;
+			data << i << ' ' << collisions << '\n';
+		}
+	}
+	std::stringstream results;
+	results << "\nTotally " << collisions << " collisions\n"
+		<< "of " << i << " hash calculations\n"
+		<< '(' << std::setprecision(3)
+		<< static_cast<double>(collisions) / i * 100 << "%)";
+	data << results.str() << std::endl;
+	data.close();
+	std::cout << results.str() << std::endl;
+}
+
+auto permutatedStrings(std::string string) {
+	std::sort(string.begin(), string.end());
+	std::vector<std::string> strings;
+	do {
+		strings.push_back(string);
+	} while (std::next_permutation(string.begin(), string.end()));
+	return strings;
+}
+
 void testTask4() {
-	constexpr auto ITERATIONS = 10000000;
-	testStringHash(RSHash, ITERATIONS, "Sem4/S4T4_RS.txt");
-	testStringHash(JSHash, ITERATIONS, "Sem4/S4T4_JS.txt");
-	testStringHash(PJWHash, ITERATIONS, "Sem4/S4T4_PJW.txt");
-	testStringHash(ELFHash, ITERATIONS, "Sem4/S4T4_ELF.txt");
-	testStringHash(BKDRHash, ITERATIONS, "Sem4/S4T4_BKDR.txt");
-	testStringHash(SDBMHash, ITERATIONS, "Sem4/S4T4_SDBM.txt");
-	testStringHash(DJBHash, ITERATIONS, "Sem4/S4T4_DJB.txt");
-	testStringHash(DEKHash, ITERATIONS, "Sem4/S4T4_DEK.txt");
-	testStringHash(APHash, ITERATIONS, "Sem4/S4T4_AP.txt");
+	auto strings = permutatedStrings("stringHASH");
+	testStringHash(RSHash, strings.begin(), strings.end(), "Sem4/S4T4_RS.txt");
+	testStringHash(JSHash, strings.begin(), strings.end(), "Sem4/S4T4_JS.txt");
+	testStringHash(PJWHash, strings.begin(), strings.end(), "Sem4/S4T4_PJW.txt");
+	testStringHash(ELFHash, strings.begin(), strings.end(), "Sem4/S4T4_ELF.txt");
+	testStringHash(BKDRHash, strings.begin(), strings.end(), "Sem4/S4T4_BKDR.txt");
+	testStringHash(SDBMHash, strings.begin(), strings.end(), "Sem4/S4T4_SDBM.txt");
+	testStringHash(DJBHash, strings.begin(), strings.end(), "Sem4/S4T4_DJB.txt");
+	testStringHash(DEKHash, strings.begin(), strings.end(), "Sem4/S4T4_DEK.txt");
+	testStringHash(APHash, strings.begin(), strings.end(), "Sem4/S4T4_AP.txt");
 }

@@ -2,6 +2,6 @@ Collisions in my hash function: 0
 Collisions in standard hash function: 0
 Collisions in my fast hash function: 0
 Assertion successful
-My hash function's time: 1479
-Standard hash function's time: 10
-My fast hash function's time: 13
+My hash function's time: 379
+Standard hash function's time: 2
+My fast hash function's time: 3

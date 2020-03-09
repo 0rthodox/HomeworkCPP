@@ -125,8 +125,8 @@ void testTask1() {
 		for (const auto& collection : winners) {
 			results[collection]++;
 		}
+		data << "\nWinners:\n";
 		for (const auto& [collection, wins] : results) {
-			data << "\nWinners:\n";
 			data << collection << ": " << wins << " times of " << winners.size() << "\n" << std::endl;
 		}
 	}

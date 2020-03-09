@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem3\RandomGenerator.h" />
     <ClInclude Include="Sem3\timer.h" />
     <ClInclude Include="Sem4\Catalogue.h" />
     <ClInclude Include="Sem4\hashFloating.h" />
+    <ClInclude Include="Sem4\RandomGenerator.h" />
     <ClInclude Include="Sem4\task1.h" />
     <ClInclude Include="Sem4\task2.h" />
     <ClInclude Include="Sem4\task3.h" />
@@ -121,6 +121,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\dev\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
