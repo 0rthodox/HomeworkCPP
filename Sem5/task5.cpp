@@ -65,12 +65,12 @@ int main() {
 	auto oddCount = std::count_if(RANGE(sequence), [](const auto& x) {
 		return (x % 2);
 		});
-	std::cout << "Odd numbers: " << std::move(oddCount) << std::endl;
+	PRINTC "Odd numbers: " << std::move(oddCount) EOL;
 
 	//TASK 6
 	PRINTC 6 EOL;
 	auto mmElements = std::minmax_element(RANGE(sequence));
-	std::cout << "Min = " << *mmElements.first << ", max = " << *mmElements.second << std::endl;
+	PRINTC "Min = " << *mmElements.first << ", max = " << *mmElements.second EOL;
 
 	//TASK 7
 	PRINTC 7 EOL;
