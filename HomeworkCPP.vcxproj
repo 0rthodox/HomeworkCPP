@@ -19,18 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem3\timer.h" />
-    <ClInclude Include="Sem4\Catalogue.h" />
-    <ClInclude Include="Sem4\hashFloating.h" />
-    <ClInclude Include="Sem4\RandomGenerator.h" />
-    <ClInclude Include="Sem4\task1.h" />
-    <ClInclude Include="Sem4\task2.h" />
-    <ClInclude Include="Sem4\task3.h" />
-    <ClInclude Include="Sem4\task4.h" />
-    <ClInclude Include="Sem4\task5.h" />
+    <ClInclude Include="Sem5\RandomGenerator.h" />
+    <ClInclude Include="task5.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem4\tests.cpp" />
+    <ClCompile Include="Sem5\task5.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
