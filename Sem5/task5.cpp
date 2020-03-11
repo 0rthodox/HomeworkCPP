@@ -79,8 +79,8 @@ int main() {
 			if (!(x % i)) {
 				return true;
 			}
-			return false;
 		}
+		return false;
 		}) EOL;
 
 	//TASK 8
