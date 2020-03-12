@@ -20,7 +20,7 @@ template <typename T>
 std::ostream& operator<< (std::ostream& ostr, const std::vector<T>& collection) {
 	ostr << '{';
 	auto first = true;
-	for (const auto& element : collection) {
+	for (auto element : collection) {
 		if (first) {
 			first = false;
 		}
@@ -77,7 +77,7 @@ int main() {
 
 	//TASK 5
 	PRINTC 5 EOL;
-	auto oddCount = std::count_if(RANGE(sequence), [](const auto& x) {
+	auto oddCount = std::count_if(RANGE(sequence), [](auto x) {
 		return (x % 2);
 		});
 	PRINTC "Odd numbers: " << std::move(oddCount) EOL;
@@ -89,8 +89,8 @@ int main() {
 
 	//TASK 7
 	PRINTC 7 EOL;
-	PRINTC "Prime number: " << *std::find_if(RANGE(sequence), [](const auto& x) {
-		for (auto i = 1; i < (x + 1) / 2; ++i) {
+	PRINTC "Prime number: " << *std::find_if(RANGE(sequence), [](auto x) {
+		for (auto i = 1; i <= sqrt(x); ++i) {
 			if (!(x % i)) {
 				return true;
 			}
@@ -100,7 +100,7 @@ int main() {
 
 	//TASK 8
 	PRINTC 8 EOL;
-	std::transform(RANGE(sequence), sequence.begin(), [](const auto& x) {
+	std::transform(RANGE(sequence), sequence.begin(), [](auto x) {
 		return x * x;
 		});
 	PRINTC sequence EOL;
@@ -108,9 +108,11 @@ int main() {
 
 	//TASK 9
 	PRINTC 9 EOL;
-	std::mt19937 generator;
+	RandomGenerator<int> randomGenerator(*mmElements.first, *mmElements.second);
 	std::vector<int> sSequence;
-	std::generate_n(back_inserter(sSequence), sequence.size(), std::ref(generator));
+	std::generate_n(std::back_inserter(sSequence), sequence.size(), [&randomGenerator](){
+		return randomGenerator.rand();
+		});
 	PRINTC sSequence EOL;
 
 	//TASK 10
@@ -119,7 +121,7 @@ int main() {
 
 	//TASK 11
 	PRINTC 11 EOL;
-	auto amount = RandomGenerator(static_cast<size_t>(1), sSequence.size() - 1).rand();
+	auto amount = RandomGenerator(1llu, sSequence.size() - 1).rand();
 	std::for_each_n(sSequence.begin(), amount, [](auto& x) {
 		x = 1;
 		});
@@ -128,21 +130,21 @@ int main() {
 	//TASK 12
 	PRINTC 12 EOL;
 	std::vector<int> tSequence;
-	std::transform(RANGE(sequence), sSequence.begin(), std::back_inserter(tSequence), [](const auto& x, const auto& y) {
+	std::transform(RANGE(sequence), sSequence.begin(), std::back_inserter(tSequence), [](auto x, auto y) {
 		return x - y;
 		});
 	PRINTC tSequence EOL;
 	
 	//TASK 13
 	PRINTC 13 EOL;
-	std::replace_if(RANGE(tSequence), [](const auto& x) {
+	std::replace_if(RANGE(tSequence), [](auto x) {
 		return x < 0;
 		}, 0);
 	PRINTC tSequence EOL;
 
 	//TASK 14
 	PRINTC 14 EOL;
-	tSequence.erase(std::remove_if(RANGE(tSequence), [](const auto& x) {
+	tSequence.erase(std::remove_if(RANGE(tSequence), [](auto x) {
 		return x == 0;
 		}), tSequence.end());
 	PRINTC tSequence EOL;
