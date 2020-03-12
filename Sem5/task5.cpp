@@ -6,6 +6,7 @@
 #include <random>
 #include <chrono>
 #include "RandomGenerator.h"
+#include <unordered_set>
 
 #define RANGE(s) s.begin(), s.end()
 
@@ -56,8 +57,22 @@ int main() {
 
 	//TASK 4
 	PRINTC 4 EOL;
+
+	//1:
+	//sequence.erase(std::unique(RANGE(sequence)), sequence.end());
+	//can be used only to remove consecutive elements
+
+	//2:
 	//std::sort(RANGE(sequence));
-	sequence.erase(std::unique(RANGE(sequence)), sequence.end());
+	//sequence.erase(std::unique(RANGE(sequence)), sequence.end());
+	//all duplicates are removed but the range is sorted
+
+	//3:
+	std::unordered_set<int> uniqueSequence(RANGE(sequence));
+	sequence.resize(uniqueSequence.size());
+	std::move(RANGE(uniqueSequence), sequence.begin());
+	//all duplicates are removed
+	
 	PRINTC sequence EOL;
 
 	//TASK 5
