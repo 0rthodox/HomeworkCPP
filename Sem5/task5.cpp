@@ -81,14 +81,14 @@ int main() {
 	//TASK 7
 	PRINTC 7 EOL;
 	auto primeIter = std::find_if(RANGE(sequence), [](auto x) {
-		for (auto i = 1; i <= sqrt(x); ++i) {
+		for (auto i = 2; i <= sqrt(x); ++i) {
 			if (!(x % i)) {
-				return true;
+				return false;
 			}
 		}
-		return false;
+		return true;
 		});
-	PRINTC "Prime number: " << (primeIter == sequence.end() ? std::to_string(*primeIter) : "Absent") EOL;
+	PRINTC "Prime number: " << (primeIter == sequence.end() ? "Absent" : std::to_string(*primeIter)) EOL;
 
 	//TASK 8
 	PRINTC 8 EOL;
