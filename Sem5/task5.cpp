@@ -18,17 +18,8 @@
 
 template <typename T>
 std::ostream& operator<< (std::ostream& ostr, const std::vector<T>& collection) {
-	ostr << '{';
-	auto first = true;
-	for (auto element : collection) {
-		if (first) {
-			first = false;
-		}
-		else {
-			ostr << ' ';
-		}
-		ostr << element;
-	}
+	ostr << "{ ";
+	std::copy(RANGE(collection), std::ostream_iterator<int>(ostr, " "));
 	ostr << '}';
 	return ostr;
 }
@@ -89,14 +80,15 @@ int main() {
 
 	//TASK 7
 	PRINTC 7 EOL;
-	PRINTC "Prime number: " << *std::find_if(RANGE(sequence), [](auto x) {
+	auto primeIter = std::find_if(RANGE(sequence), [](auto x) {
 		for (auto i = 1; i <= sqrt(x); ++i) {
 			if (!(x % i)) {
 				return true;
 			}
 		}
 		return false;
-		}) EOL;
+		});
+	PRINTC "Prime number: " << (primeIter == sequence.end() ? std::to_string(*primeIter) : "Absent") EOL;
 
 	//TASK 8
 	PRINTC 8 EOL;
@@ -184,11 +176,11 @@ int main() {
 
 	//TASK 20
 	PRINTC 20 EOL;
-	PRINTC_INT_RANGE(sequence);
+	PRINTC sequence EOL;
 	PRINTC ' ' EOL;
-	PRINTC_INT_RANGE(sSequence);
+	PRINTC sSequence EOL;
 	PRINTC ' ' EOL;
-	PRINTC_INT_RANGE(tSequence);
+	PRINTC tSequence EOL;
 	PRINTC ' ' EOL;
-	PRINTC_INT_RANGE(fSequence);
+	PRINTC fSequence EOL;
 }
