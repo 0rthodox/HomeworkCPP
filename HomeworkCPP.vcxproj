@@ -22,8 +22,8 @@
     <ClCompile Include="Sem6\example.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CurrencyConverter.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Sem6\CurrencyConverter.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -6,8 +6,7 @@
 #include <stdlib.h>
 
 long double getEuroRate() {
-	//system("java -classpath D:\Source\Repos\HomeworkCPP Main");
-	system("java Main");
+	system("java -classpath Sem6 CurrencyExtractor");
 	std::ifstream rateStream("rate.txt");
 	long double rate;
 	rateStream >> rate;
@@ -20,9 +19,9 @@ void convert() {
 	SetConsoleCP(CP_UTF8);
 	SetConsoleOutputCP(CP_UTF8);
 	long double value;
-	auto eur = getEuroRate();
+	auto euroRate = getEuroRate();
 	while (std::cin >> std::get_money(value)) {
-		value *= getEuroRate();
+		value *= euroRate;
 		std::cout << std::showbase << std::put_money(value, false) << std::endl;
 	}
 	
