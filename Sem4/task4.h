@@ -157,10 +157,10 @@ void testNumericStringHash(unsigned hasher (const char*, unsigned), size_t itera
 	for (auto i = 0; i < iterations; ++i) {
 		auto string = std::to_string(i);
 		auto hash = hasher(string.c_str(), string.size());
-		printf("%s %d %d\n", string.c_str(), string.size(), hash);
+		//printf("%s %d %d\n", string.c_str(), string.size(), hash);
 		if (!hashes.insert(hash).second) {
 			collisions++;
-			data << i << ' ' << collisions << '\n';
+			//data << i << ' ' << collisions << '\n';
 		}
 	}
 	std::stringstream results;
@@ -183,7 +183,7 @@ void testStringHash(unsigned hasher(const char*, unsigned), ForwardIt first, For
 	for (auto it = first; it != last; ++it) {
 		auto string = *it;
 		auto hash = hasher(string.c_str(), string.size());
-		//printf("%s %d %d\n", string.c_str(), string.size(), hash);
+		printf("%s %d %d\n", string.c_str(), string.size(), hash);
 		++i;
 		if (!hashes.insert(hash).second) {
 			collisions++;
@@ -210,14 +210,25 @@ auto permutatedStrings(std::string string) {
 }
 
 void testTask4() {
-	auto strings = permutatedStrings("stringHASH");
-	testStringHash(RSHash, strings.begin(), strings.end(), "Sem4/S4T4_RS.txt");
-	testStringHash(JSHash, strings.begin(), strings.end(), "Sem4/S4T4_JS.txt");
-	testStringHash(PJWHash, strings.begin(), strings.end(), "Sem4/S4T4_PJW.txt");
-	testStringHash(ELFHash, strings.begin(), strings.end(), "Sem4/S4T4_ELF.txt");
-	testStringHash(BKDRHash, strings.begin(), strings.end(), "Sem4/S4T4_BKDR.txt");
-	testStringHash(SDBMHash, strings.begin(), strings.end(), "Sem4/S4T4_SDBM.txt");
-	testStringHash(DJBHash, strings.begin(), strings.end(), "Sem4/S4T4_DJB.txt");
-	testStringHash(DEKHash, strings.begin(), strings.end(), "Sem4/S4T4_DEK.txt");
-	testStringHash(APHash, strings.begin(), strings.end(), "Sem4/S4T4_AP.txt");
+	//auto strings = permutatedStrings("stringHASH");
+	///*testStringHash(RSHash, strings.begin(), strings.end(), "Sem4/S4T4_RS.txt");
+	//testStringHash(JSHash, strings.begin(), strings.end(), "Sem4/S4T4_JS.txt");*/
+	//testStringHash(PJWHash, strings.begin(), strings.end(), "Sem4/S4T4_PJW.txt");
+	//testStringHash(ELFHash, strings.begin(), strings.end(), "Sem4/S4T4_ELF.txt");
+	//testStringHash(BKDRHash, strings.begin(), strings.end(), "Sem4/S4T4_BKDR.txt");
+	//testStringHash(SDBMHash, strings.begin(), strings.end(), "Sem4/S4T4_SDBM.txt");
+	//testStringHash(DJBHash, strings.begin(), strings.end(), "Sem4/S4T4_DJB.txt");
+	//testStringHash(DEKHash, strings.begin(), strings.end(), "Sem4/S4T4_DEK.txt");
+	//testStringHash(APHash, strings.begin(), strings.end(), "Sem4/S4T4_AP.txt");
+	constexpr auto ITERATIONS = 10100100;
+	/*testNumericStringHash(RSHash, ITERATIONS, "Sem4/S4T4_RS.txt");
+	testNumericStringHash(JSHash, ITERATIONS, "Sem4/S4T4_JS.txt");*/
+	testNumericStringHash(PJWHash, ITERATIONS, "Sem4/S4T4_PJW.txt");
+	/*testNumericStringHash(ELFHash, ITERATIONS, "Sem4/S4T4_ELF.txt");
+	testNumericStringHash(BKDRHash, ITERATIONS, "Sem4/S4T4_BKDR.txt");
+	testNumericStringHash(SDBMHash, ITERATIONS, "Sem4/S4T4_SDBM.txt");
+	testNumericStringHash(DJBHash, ITERATIONS, "Sem4/S4T4_DJB.txt");
+	testNumericStringHash(DEKHash, ITERATIONS, "Sem4/S4T4_DEK.txt");
+	testNumericStringHash(APHash, ITERATIONS, "Sem4/S4T4_AP.txt");*/
+
 }
