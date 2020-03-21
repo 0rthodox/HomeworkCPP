@@ -12,7 +12,7 @@ public class CurrencyExtractor {
             int index = parsedFile.lastIndexOf(previousString) + previousString.length();
             parsedRate = parsedFile.substring(index, index + 7);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UncheckedIOException(e);
         }
         return Double.parseDouble(parsedRate);
     }
