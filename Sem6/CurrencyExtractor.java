@@ -7,7 +7,9 @@ public class CurrencyExtractor {
     static Double getEuroRate() {
         String parsedRate = null;
         try {
-            String parsedFile = new Scanner(new URL("http://www.profinance.ru/currency_eur.asp").openStream(), "UTF-8").useDelimiter("\\A").next();
+            String parsedFile = new Scanner(
+                    new URL("http://www.profinance.ru/currency_eur.asp").openStream(),
+                    "UTF-8").useDelimiter("\\A").next();
             String previousString = "<td>Евро</td>\n" + "\t\t\t\t\t<td>";
             int index = parsedFile.lastIndexOf(previousString) + previousString.length();
             parsedRate = parsedFile.substring(index, index + 7);
@@ -17,15 +19,15 @@ public class CurrencyExtractor {
         return Double.parseDouble(parsedRate);
     }
 
-    static void saveRateToFile(Double rate) {
-        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("rate.txt"))) {
+    static void saveRateToFile(Double rate, String fileName) {
+        try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
             bufferedWriter.write(rate.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
     }
     public static void main(String[] args) {
-        saveRateToFile(getEuroRate());
+        saveRateToFile(getEuroRate(), args[0]);
     }
 
 }

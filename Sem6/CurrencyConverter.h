@@ -6,10 +6,14 @@
 #include <stdlib.h>
 
 long double getEuroRate() {
-	system("java -classpath Sem6 CurrencyExtractor");
-	std::ifstream rateStream("rate.txt");
+	std::string tempFile = "Sem6/_TEMPFILE_rate.txt";
+	std::string invokeCurrencyExtractor = "java -classpath Sem6 CurrencyExtractor ";
+	system((invokeCurrencyExtractor + tempFile).c_str());
+	std::ifstream rateStream(tempFile);
 	long double rate;
 	rateStream >> rate;
+	std::remove(tempFile.c_str());
+	std::cout << "Current exchange rate pulled successfully" << std::endl;
 	return rate;
 }
 
