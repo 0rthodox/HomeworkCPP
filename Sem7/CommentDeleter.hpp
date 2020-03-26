@@ -22,7 +22,6 @@ public:
 		std::vector<char> results;
 		size_t pos = 0;
 		for (auto c : contents) {
-			std::cout << c << "    " << (int)state << std::endl;
 			switch (state) {
 			case State::OUTSIDE:
 				if (c == '/') {
@@ -51,10 +50,9 @@ public:
 				}
 				break;
 			case State::INSIDE_SINGLE:
-				if (c == '\n') {
+				if (c == '\r') {
 					state = State::OUTSIDE;
-					results.push_back('\r');
-					results.push_back('\n');
+					results.push_back(c);
 				}
 				break;
 			case State::INSIDE_STRING:
