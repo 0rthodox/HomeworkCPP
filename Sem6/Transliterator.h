@@ -61,39 +61,83 @@ std::string convert_utf_to_locale(const std::string& string)
 }
 
 class Transliterator {
-
 public:
-	Transliterator() {
-		initSymbols();
-	}
+	Transliterator();
+	std::string operator()(const std::string& inputString) {
+		std::string u8InputString = convert_locale_to_utf(inputString);
+		std::u32string u32InputString = boost::locale::conv::utf_to_utf<char32_t>(u8InputString);
 
-	std::string transliterate(const std::string& strToTransliterate) {
-		return wtransliterate(convert_string_to_wstring(convert_locale_to_utf(strToTransliterate)), strToTransliterate.size());
-	}
-
-	std::string wtransliterate(const std::wstring& strToTransliterate, size_t size) {
-		int32_t* ptr = reinterpret_cast<int32_t*>(&const_cast<std::wstring&>(strToTransliterate));
-		std::string transliterated;
-		for (size_t i = 0; i < size; ++i) {
-			std::copy(RANGE(symbols[ptr[i]]), std::back_inserter(transliterated));
-		}
-		return transliterated;
 	}
 
 private:
-
-	void initSymbols() {
-		std::ifstream inputStream("Sem6/translitGOST779-2000.txt");
-		std::string latinLetters;
-		std::string cyrillicLetters = u8"àáâãäå¸æçèéêëìíîïðñòóôõö÷øùúûüýþÿ";
-		std::wstring wcyrillicLetters =
-			convert_string_to_wstring(cyrillicLetters, std::locale("ru_RU.utf8"));
-		int32_t* cyrillicPointer = reinterpret_cast<int32_t*>(wcyrillicLetters.data());
-		for (size_t i = 0; i < 33; ++i) {
-			inputStream >> latinLetters;
-			symbols[cyrillicPointer[i]] = latinLetters;
-		}
-	}
-
-	std::unordered_map<wchar_t, std::string> symbols;
+	std::unordered_map<char32_t, std::u32string> m_transliterates;
 };
+
+Transliterator::Transliterator() : m_transliterates({
+	{U'é', U"j"},
+	{U'ö', U"cz"},
+	{U'ó', U"u"},
+	{U'ê', U"k"},
+	{U'å', U"e"},
+	{U'í', U"n"},
+	{U'ã', U"g"},
+	{U'ø', U"sh"},
+	{U'ù', U"shch"},
+	{U'ç', U"z"},
+	{U'õ', U"kh"},
+	{U'ú', U"''"},
+	{U'ô', U"ph"},
+	{U'û', U"y'"},
+	{U'â', U"v"},
+	{U'à', U"a"},
+	{U'ï', U"p"},
+	{U'ð', U"r"},
+	{U'î', U"o"},
+	{U'ë', U"l"},
+	{U'ä', U"d"},
+	{U'æ', U"zh"},
+	{U'ý', U"e'"},
+	{U'ÿ', U"ya"},
+	{U'÷', U"ch"},
+	{U'ñ', U"s"},
+	{U'ì', U"m"},
+	{U'è', U"i"},
+	{U'ò', U"t"},
+	{U'ü', U"'"},
+	{U'á', U"b"},
+	{U'þ', U"yu"},
+	{U'¸', U"yo"},
+	{U'¨', U"Yo"},
+	{U'É', U"J"},
+	{U'Ö', U"Cz"},
+	{U'Ó', U"Y"},
+	{U'Ê', U"K"},
+	{U'Å', U"E"},
+	{U'Í', U"N"},
+	{U'Ã', U"G"},
+	{U'Ø', U"Sh"},
+	{U'Ù', U"Shch"},
+	{U'Ç', U"Z"},
+	{U'Õ', U"Kh"},
+	{U'Ú', U"''"},
+	{U'Ô', U"Ph"},
+	{U'Û', U"Y'"},
+	{U'Â', U"V"},
+	{U'À', U"A"},
+	{U'Ï', U"P"},
+	{U'Ð', U"R"},
+	{U'Î', U"O"},
+	{U'Ë', U"L"},
+	{U'Ä', U"D"},
+	{U'Æ', U"Zh"},
+	{U'Ý', U"E'"},
+	{U'ß', U"Ya"},
+	{U'×', U"Ch"},
+	{U'Ñ', U"C"},
+	{U'Ì', U"M"},
+	{U'È', U"I"},
+	{U'Ò', U"T"},
+	{U'Ü', U"'"},
+	{U'Á', U"B"},
+	{U'Þ', U"Yu"},
+	}) {}

@@ -10,7 +10,7 @@ public:
 	}
 	void operator()() {
 		std::string tempFile = copyFile();
-		std::istreambuf_iterator<char> inputIt(std::ifstream(tempFile));
+		std::istreambuf_iterator<char> inputIt = std::istreambuf_iterator<char>(std::ifstream(tempFile));
 		std::istreambuf_iterator<char> end;
 		std::ostreambuf_iterator<char> outputIt(std::ofstream(tempFile));
 		/*while (inputIt != end) {
