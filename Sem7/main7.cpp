@@ -9,14 +9,16 @@
 
 int main() {
 	//second task
-	/*String path = "Sem7/strings.txt";
+	std::string path = "Sem7/strings.txt";
 	FileStringReader reader(path);
-	std::cout << reader.readString(3);*/
+	for (int i = 0; i < 5; ++i) {
+		std::cout << reader.readString(i) << std::endl;
+	}
 
 	//first task
-	std::string path = "Sem7/input.txt";
+	/*std::string path = "Sem7/input.txt";
 	CommentDeleter deleter;
-	deleter.deleteComments(path);
+	deleter.deleteComments(path);*/
 
 	//third task
 	/*auto path = std::experimental::filesystem::current_path();
