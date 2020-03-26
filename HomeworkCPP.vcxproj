@@ -19,16 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem7\main7.cpp" />
+    <ClInclude Include="Sem6\Transliterator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem7\CommentDeleter.hpp" />
-    <ClInclude Include="Sem7\CommentsDeleter.hpp" />
-    <ClInclude Include="Sem7\DirectoryViewer.hpp" />
-    <ClInclude Include="Sem7\FileStringReader.hpp" />
-    <ClInclude Include="Sem7\json.hpp" />
-    <ClInclude Include="Sem7\JsonFileSaver.hpp" />
-    <ClInclude Include="Sem7\Programmer.hpp" />
+    <ClCompile Include="Sem6\main6.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
