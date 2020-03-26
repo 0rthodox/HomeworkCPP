@@ -22,6 +22,8 @@
     <ClCompile Include="Sem7\main7.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem7\CommentDeleter.hpp" />
+    <ClInclude Include="Sem7\CommentsDeleter.hpp" />
     <ClInclude Include="Sem7\FileStringReader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -82,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>C:\dev\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

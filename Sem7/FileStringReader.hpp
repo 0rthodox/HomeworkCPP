@@ -4,14 +4,14 @@
 #include <iostream>
 
 class FileStringReader {
-public:
 
+
+public:
 	FileStringReader(std::string& path) : currentPath(path) {
 
 	}
-
+	
 private:
-
 	auto determineSize(std::istream& fileReader) {
 		std::string testString;
 		fileReader >> testString;
@@ -19,8 +19,8 @@ private:
 		return testString.size() - 1;
 	}
 
-public:
 
+public:
 	std::string readString(size_t i) {
 		std::ifstream fileReader(currentPath);
 		auto size = determineSize(fileReader);
@@ -29,8 +29,8 @@ public:
 		fileReader >> readString;
 		return readString;
 	}
-private:
 
+private:
 	std::string currentPath;
 };
 
