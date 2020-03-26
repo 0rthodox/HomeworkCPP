@@ -9,11 +9,11 @@
 
 int main() {
 	//second task
-	std::string path = "Sem7/strings.txt";
+	/*std::string path = "Sem7/strings.txt";
 	FileStringReader reader(path);
 	for (int i = 0; i < 5; ++i) {
 		std::cout << reader.readString(i) << std::endl;
-	}
+	}*/
 
 	//first task
 	/*std::string path = "Sem7/input.txt";
@@ -26,10 +26,10 @@ int main() {
 	viewer(std::cout);*/
 
 	//fourth task
-	/*Programmer john("Jonh", 23, "C++", Programmer::Proficiency::MASTER);
+	Programmer john("Jonh", 23, "C++", Programmer::Proficiency::MASTER);
 	Programmer alex;
 	std::cin >> alex;
 	JsonFileSaver jsonSaver(std::filesystem::current_path() / "Sem7", "JSONs");
 	jsonSaver("John.txt", john.toJson());
-	jsonSaver("Alex.txt", alex.toJson());*/
+	jsonSaver("Alex.txt", alex.toJson());
 }

@@ -9,6 +9,7 @@
 using nlohmann::json;
 
 class Programmer {
+public:
 	enum class Proficiency {
 		BEGINNER,
 		MEDIUM,
