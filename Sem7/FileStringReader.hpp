@@ -2,12 +2,13 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <filesystem>
 
 class FileStringReader {
 
 
 public:
-	FileStringReader(std::string& path) : currentPath(path) {
+	FileStringReader(const std::filesystem::path& path) : currentPath(path) {
 
 	}
 	
@@ -31,7 +32,7 @@ public:
 	}
 
 private:
-	std::string currentPath;
+	std::filesystem::path currentPath;
 };
 
 
