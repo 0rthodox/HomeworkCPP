@@ -22,6 +22,12 @@ public:
 		size_t pos = 0;
 		for (auto c : contents) {
 			switch (state) {
+			case State::OUTSIDE:
+				if (c == '/') {
+					state = State::STARTING;
+				}
+				results.push_back(c);
+				break;
 			case State::STARTING:
 				if (c == '/') {
 					state = State::INSIDE_SINGLE;
@@ -34,32 +40,11 @@ public:
 					results.push_back(c);
 				}
 				break;
-			case State::OUTSIDE:
-				if (c == '/') {
-					state = State::STARTING;
-				}
-				results.push_back(c);
-				break;
-			/*case State::INSIDE_SINGLE:
-				if (c == '\r') {
-					state = State::FINISHING_SINGLE;
-				}
-				break;*/
 			case State::INSIDE_MULTI:
 				if (c == '*') {
 					state = State::FINISHING_MULTI;
 				}
 				break;
-			/*case State::FINISHING_SINGLE:
-				if (c == '\n') {
-					state = State::OUTSIDE;
-					results.push_back('\r');
-					results.push_back('\n');
-				}
-				else {
-					state = State::INSIDE_SINGLE;
-				}
-				break;*/
 			case State::INSIDE_SINGLE:
 				if (c == '\n') {
 					state = State::OUTSIDE;

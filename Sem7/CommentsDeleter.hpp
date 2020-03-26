@@ -13,9 +13,9 @@ public:
 		std::istreambuf_iterator<char> inputIt(std::ifstream(tempFile));
 		std::istreambuf_iterator<char> end;
 		std::ostreambuf_iterator<char> outputIt(std::ofstream(tempFile));
-		/*while (inputIt != end) {
+		while (inputIt != end) {
 
-		}*/
+		}
 	}
 
 private:
