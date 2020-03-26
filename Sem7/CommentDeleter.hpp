@@ -13,18 +13,23 @@ public:
 			STARTING,
 			INSIDE_SINGLE,
 			INSIDE_MULTI,
+			INSIDE_STRING,
 			OUTSIDE,
-			FINISHING_SINGLE,
+			NOT_FINISHING_STRING,
 			FINISHING_MULTI
 		} state = State::OUTSIDE;
 		auto contents = readFile(fileName);
 		std::vector<char> results;
 		size_t pos = 0;
 		for (auto c : contents) {
+			std::cout << c << "    " << (int)state << std::endl;
 			switch (state) {
 			case State::OUTSIDE:
 				if (c == '/') {
 					state = State::STARTING;
+				}
+				else if (c == '"') {
+					state = State::INSIDE_STRING;
 				}
 				results.push_back(c);
 				break;
@@ -51,6 +56,20 @@ public:
 					results.push_back('\r');
 					results.push_back('\n');
 				}
+				break;
+			case State::INSIDE_STRING:
+				if (c == '\\') {
+					state = State::NOT_FINISHING_STRING;
+				} else if (c == '"') {
+					state = State::OUTSIDE;
+				}
+				results.push_back(c);
+				break;
+			case State::NOT_FINISHING_STRING:
+				if (c == '"') {
+					state = State::INSIDE_STRING;
+				}
+				results.push_back(c);
 				break;
 			case State::FINISHING_MULTI:
 				if (c == '/') {
