@@ -93,23 +93,5 @@ private:
 			result.push_back(c);
 		}
 		return result;
-	}
-
-private:
-	void eatSingleLineComment(std::istream& istr) {
-		std::string ignored;
-		std::getline(istr, ignored);
-		istr.putback('\n');
-	}
-
-private:
-	void eatMultiLineComment(std::istream& istr) {
-		std::string ignored;
-		do {
-			std::getline(istr, ignored, '*');
-		} while (istr.peek() != '/');
-		istr.ignore(1);
-	}
-		
-	
+	}	
 };
