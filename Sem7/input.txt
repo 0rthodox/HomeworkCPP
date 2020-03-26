@@ -2,7 +2,6 @@
 
 int main(){ 
 	std::cout << "Hello, \"M\"  world! 
-	
-	comment_2 */	int y; } 
+		int y; } 
 
 

@@ -14,9 +14,9 @@ int main() {
 	std::cout << reader.readString(3);*/
 
 	//first task
-	/*std::string path = "Sem7/input.txt";
+	std::string path = "Sem7/input.txt";
 	CommentDeleter deleter;
-	deleter.deleteComments(path);*/
+	deleter.deleteComments(path);
 
 	//third task
 	/*auto path = std::experimental::filesystem::current_path();
@@ -24,10 +24,10 @@ int main() {
 	viewer(std::cout);*/
 
 	//fourth task
-	Programmer john("Jonh", 23, "C++", Programmer::Proficiency::MASTER);
+	/*Programmer john("Jonh", 23, "C++", Programmer::Proficiency::MASTER);
 	Programmer alex;
 	std::cin >> alex;
 	JsonFileSaver jsonSaver(std::filesystem::current_path() / "Sem7", "JSONs");
 	jsonSaver("John.txt", john.toJson());
-	jsonSaver("Alex.txt", alex.toJson());
+	jsonSaver("Alex.txt", alex.toJson());*/
 }
