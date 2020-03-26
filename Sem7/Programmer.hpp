@@ -29,13 +29,12 @@ public:
 	}
 	friend std::istream& operator>> (std::istream& input, Programmer& programmer);
 	json toJson();
-
+private:
 	boost::bimap<Proficiency, std::string> proficiencyMap;
 	std::string name;
 	int age;
 	std::string language;
 	Proficiency level;
-private:
 	void initProficiencyMap();
 };
 
