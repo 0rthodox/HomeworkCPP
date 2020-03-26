@@ -29,5 +29,8 @@
     <ClInclude Include="Sem7\CommentsDeleter.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Sem7\DirectoryViewer.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
