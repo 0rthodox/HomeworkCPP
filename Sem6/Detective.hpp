@@ -1,9 +1,9 @@
 #pragma once
 
+#include <algorithm>
 #include <regex>
 #include <string>
 #include <vector>
-#include <algorithm>
 
 class Detective {
 public:

@@ -19,10 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ODetective.hpp" />
-    <ClInclude Include="Sem6\DateTimeSearcher.h" />
     <ClInclude Include="Sem6\Detective.hpp" />
-    <ClInclude Include="Sem6\DomainSearcher.h" />
     <ClInclude Include="Sem6\Transliterator.h" />
   </ItemGroup>
   <ItemGroup>

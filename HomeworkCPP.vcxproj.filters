@@ -18,15 +18,6 @@
     <ClInclude Include="Sem6\Transliterator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Sem6\DateTimeSearcher.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Sem6\DomainSearcher.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="ODetective.hpp">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Sem6\Detective.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>

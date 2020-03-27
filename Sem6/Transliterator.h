@@ -13,8 +13,6 @@ namespace borrowed {
 	std::string convert_locale_to_utf(const std::string& string);
 }
 
-
-
 class Transliterator {
 public:
 	Transliterator();
