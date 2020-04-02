@@ -5,6 +5,9 @@
 #include <numeric>
 #include <mutex>
 #include "Pi.hpp"
+#include "AccumulateNThreads.hpp"
+#include <fstream>
+#include "Timer.h"
 
 std::mutex m;
 
@@ -33,7 +36,21 @@ int main() {
 	//	}
 	//}
 	
-	//Test #4
-	std::cout << Pi()() << std::endl;
-	std::cout << PiParallel()() << std::endl;
+	////Test #4
+	//std::cout << Pi()() << std::endl;
+	//std::cout << PiParallel()() << std::endl;
+
+	//Test #2
+	std::vector < int > v(5000000);
+
+	std::iota(v.begin(), v.end(), 1);
+
+	std::fstream output("Sem8/task2data.txt", std::ios_base::out);
+
+	for (auto i = 1; i <= 24; ++i) {
+		Timer<std::chrono::microseconds> t;
+		parallel_accumulate(v.begin(), v.end(), 0, i);
+		output << t.getDuration() << ' ' << i << std::endl;
+	}
+
 }

@@ -27,13 +27,16 @@
     <ClInclude Include="Sem8\RandomGenerator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="Sem8\AccumulateNThreads.hpp">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Sem8\Timer.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sem8\main8.cpp">
       <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Sem8\accumulate_async.cpp">
-      <Filter>Файлы заголовков</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

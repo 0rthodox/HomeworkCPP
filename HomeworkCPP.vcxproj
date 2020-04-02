@@ -19,13 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem8\AccumulateNThreads.hpp" />
     <ClInclude Include="Sem8\ForEachUnsafe.hpp" />
     <ClInclude Include="Sem8\ParForEach.hpp" />
     <ClInclude Include="Sem8\Pi.hpp" />
     <ClInclude Include="Sem8\RandomGenerator.h" />
+    <ClInclude Include="Sem8\Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem8\accumulate_async.cpp" />
     <ClCompile Include="Sem8\main8.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
