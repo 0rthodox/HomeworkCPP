@@ -11,7 +11,7 @@ void parForEach(It first, It last, uFunc f) {
 		std::for_each(first, last, f);
 	} else {
 		It middle = next(first, (len + 1) / 2);
-		std::future<void> lHalf = std::async(parForEach<It, uFunc>, first, middle, f);
+		std::future<void> lHalf = std::async(std::launch::async, parForEach<It, uFunc>, first, middle, f);
 		parForEach(middle, last, f);
 		lHalf.get();
 	}

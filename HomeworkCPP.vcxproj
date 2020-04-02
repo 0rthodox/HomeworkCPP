@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem8\ForEachUnsafe.hpp" />
     <ClInclude Include="Sem8\ParForEach.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sem8\accumulate_async.cpp" />
     <ClCompile Include="Sem8\main8.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
