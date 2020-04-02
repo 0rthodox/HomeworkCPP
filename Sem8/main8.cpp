@@ -8,12 +8,18 @@
 
 std::mutex m;
 
+template <typename T>
+T abs(T x) {
+	auto result = (x < 0) ? -x : x;
+	return result;
+}
+
 int main() {
 
 	////Test #3
 	//std::vector<int> ints(100000);
 	//std::iota(ints.begin(), ints.end(), 1);
-	//forEachUnsafe(ints.begin(), ints.end(), [](auto& x) {
+	//parForEach(ints.begin(), ints.end(), [](auto& x) {
 	//	m.lock();
 	//	std::cout << x << " ";
 	//	std::cout.flush();
@@ -26,7 +32,8 @@ int main() {
 	//		std::cout << std::endl;
 	//	}
 	//}
-
+	
 	//Test #4
-	std::cout << Pi()();
+	std::cout << Pi()() << std::endl;
+	std::cout << PiParallel()() << std::endl;
 }

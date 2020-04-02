@@ -92,8 +92,10 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <StackReserveSize>200000000</StackReserveSize>
-      <StackCommitSize>100000000</StackCommitSize>
+      <StackReserveSize>
+      </StackReserveSize>
+      <StackCommitSize>
+      </StackCommitSize>
       <AdditionalDependencies>libboost_locale-vc142-mt-gd-x32-1_72.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\dev\boost_1_72_0\boost_1_72_0\stage\lib;C:\dev\boost_1_72_0\boost_1_72_0\libs\locale;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
@@ -110,6 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>C:\dev\HomeworkCPP;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <StackReserveSize>100000000</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
