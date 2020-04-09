@@ -1,4 +1,4 @@
-#include "AccumulateNThreads.hpp"
+#include "AccumulateNThreadsUnsafe.hpp"
 #include "ForEachUnsafe.hpp"
 #include "ParForEach.hpp"
 #include "Pi.hpp"
@@ -16,7 +16,7 @@
 
 int main() {
 	//Test #4
-	std::fstream output1("Sem8/data41.txt", std::ios_base::out);
+	/*std::fstream output1("Sem8/data41.txt", std::ios_base::out);
 	for (size_t i = 10; i < 1000000000; i *= 2) {
 		std::vector<int> ints(i);
 		std::iota(ints.begin(), ints.end(), 1);
@@ -38,29 +38,43 @@ int main() {
 			output1 << time << '\n';
 		}
 
-	}
-	std::fstream output1("Sem8/data42.txt", std::ios_base::out);
-	for (size_t i = 10; i < 50000000; i *= 2) {
-		std::vector<int> ints(i);
-		std::iota(ints.begin(), ints.end(), 1);
-		output1 << log(i) << ' ';
+	}*/
+	//std::fstream output1("Sem8/data42.txt", std::ios_base::out);
+	auto f = [](const auto lhs, const auto rhs) // бинарная операция для алгоритмов
+	{
+		auto result = 0.0; // начальное значение результата бинарной операции
+
+		// Этот цикл -- дополнительные действия, чтобы нагрузить алгоритмы и показать,
+		// что параллельный алгоритм может справляться с вычислениями ощутимо быстрее;
+		// без него последовательный алгоритм работает гораздо быстрее параллельного
+		for (std::size_t i = 0U; i < 10U; ++i)
 		{
-			std::vector<int> dest(ints.size());
-			Timer<std::chrono::microseconds> t;
-			std::partial_sum(ints.begin(), ints.end(), dest.begin());
-			auto time = t.getDuration();
-			output1 << time << ' ';
-		}
-		{
-			std::vector<int> dest(ints.size());
-			Timer<std::chrono::microseconds> t;
-			std::inclusive_scan(std::execution::par, ints.begin(), ints.end(), dest.begin());
-			auto time = t.getDuration();
-			output1 << time << '\n';
+			result = std::sin(lhs + rhs + result); // выражение в числах с плавающей точкой
 		}
 
-	}
-	std::fstream output1("Sem8/data43.txt", std::ios_base::out);
+		return result;
+	};
+	//for (size_t i = 10; i < 50000000; i *= 2) {
+	//	std::vector<int> ints(i);
+	//	std::iota(ints.begin(), ints.end(), 1);
+	//	output1 << log(i) << ' ';
+	//	{
+	//		std::vector<int> dest(ints.size());
+	//		Timer<std::chrono::microseconds> t;
+	//		std::partial_sum(ints.begin(), ints.end(), dest.begin(), f);
+	//		auto time = t.getDuration();
+	//		output1 << time << ' ';
+	//	}
+	//	{
+	//		std::vector<int> dest(ints.size());
+	//		Timer<std::chrono::microseconds> t;
+	//		std::inclusive_scan(std::execution::par, ints.begin(), ints.end(), dest.begin(), f);
+	//		auto time = t.getDuration();
+	//		output1 << time << '\n';
+	//	}
+
+	//}
+	/*std::fstream output1("Sem8/data43.txt", std::ios_base::out);
 	for (size_t i = 10; i < 50000000; i *= 2) {
 		std::vector<int> ints(i);
 		std::iota(ints.begin(), ints.end(), 1);
@@ -80,7 +94,7 @@ int main() {
 			output1 << time << '\n';
 		}
 
-	}
+	}*/
 
 	////Test #3
 	//std::vector<int> ints(100000);
@@ -103,17 +117,17 @@ int main() {
 	//std::cout << Pi()() << std::endl;
 	//std::cout << PiParallel()() << std::endl;
 
-	////Test #2
-	//std::vector < int > v(5000000);
+	//Test #2
+	std::vector <double> v(5000000);
 
-	//std::iota(v.begin(), v.end(), 1);
+	std::iota(v.begin(), v.end(), 1);
 
-	//std::fstream output("Sem8/task2data.txt", std::ios_base::out);
+	std::fstream output("Sem8/task2data.txt", std::ios_base::out);
 
-	//for (auto i = 1; i <= 24; ++i) {
-	//	Timer<std::chrono::microseconds> t;
-	//	parallel_accumulate(v.begin(), v.end(), 0, i);
-	//	output << t.getDuration() << ' ' << i << std::endl;
-	//}
+	for (auto i = 1; i <= 24; ++i) {
+		Timer<std::chrono::microseconds> t;
+		parallel_accumulate(v.begin(), v.end(), 0, i, f);
+		output << t.getDuration() << ' ' << i << std::endl;
+	}
 
 }

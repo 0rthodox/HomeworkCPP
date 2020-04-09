@@ -19,15 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Sem8\AccumulateNThreads.hpp" />
-    <ClInclude Include="Sem8\ForEachUnsafe.hpp" />
-    <ClInclude Include="Sem8\ParForEach.hpp" />
-    <ClInclude Include="Sem8\Pi.hpp" />
-    <ClInclude Include="Sem8\RandomGenerator.h" />
-    <ClInclude Include="Sem8\Timer.h" />
+    <ClCompile Include="Sem9\main9.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem8\main8.cpp" />
+    <ClInclude Include="Sem9\Pi.hpp" />
+    <ClInclude Include="Sem9\RandomGenerator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -124,7 +120,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>C:\Program Files\Java\jdk1.8.0_241\include\win32;C:\Program Files\Java\jdk1.8.0_241\include;C:\dev\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
