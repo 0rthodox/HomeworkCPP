@@ -2,11 +2,10 @@
 #include <memory>
 #include <mutex>
 #include <queue>
-#include <utility>
+#include <memory>
 
-template <typename T, typename Comparator = std::less<typename T>>
-class SafePriorityQueue
-{
+template <typename T, typename Comparator = std::less<T>>
+class SafePriorityQueue {
 public:
 
 	//Ctors:
@@ -27,7 +26,7 @@ public:
 	std::shared_ptr<T> try_pop();
 	bool empty() const;
 private:
-	std::priority_queue<T> m_pQueue;
+	std::priority_queue<T, std::vector<T>, Comparator> m_pQueue;
 	std::condition_variable m_condition_variable;
 	mutable std::mutex m_mutex;
 };
