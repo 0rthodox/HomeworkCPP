@@ -45,12 +45,14 @@ PiParallel::PiParallel(long long iterations = INT_MAX / 1000) :
 //Computing amount of dots inside
 [[nodiscard]] inline void PiParallel::computeDots(long long iterations, long long& inCircle)
 {
+	auto inlineInCircle = 0LL;
 	for (long long i = 0; i < iterations; ++i) {
 		auto x = randomGenerator();
 		auto y = randomGenerator();
-		if (x * x + y * y <= m_size * m_size) {
-			std::lock_guard guard{m_mutex};
-			++inCircle;
+		if (x * x + y * y <= m_size * m_size) {			
+			++inlineInCircle;
 		}
 	}
+	std::lock_guard guard{ m_mutex };
+	inCircle += inlineInCircle;
 }

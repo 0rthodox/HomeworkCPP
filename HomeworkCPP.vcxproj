@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="Sem9\Pi.hpp" />
     <ClInclude Include="Sem9\RandomGenerator.h" />
+    <ClInclude Include="Sem9\SafePQueue.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
