@@ -9,8 +9,7 @@ class SafePriorityQueue {
 public:
 
 	//Ctors:
-	SafePriorityQueue() {}
-	SafePriorityQueue(const Comparator&);
+	SafePriorityQueue() = default;
 	SafePriorityQueue(const SafePriorityQueue&);
 
 	//Ops:
@@ -28,10 +27,6 @@ private:
 };
 
 //Ctors:
-template<typename T, typename Comparator>
-inline SafePriorityQueue<T, Comparator>::SafePriorityQueue(const Comparator& comparator)
-	: m_pQueue(comparator) {}
-
 template<typename T, typename Comparator>
 SafePriorityQueue<T, Comparator>::SafePriorityQueue(const SafePriorityQueue& src) {
 	std::lock_guard lock(src.m_mutex);
