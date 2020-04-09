@@ -2,77 +2,37 @@
 #include <memory>
 #include <mutex>
 #include <queue>
+#include <utility>
 
-template <typename T, typename Comparator>
+template <typename T, typename Comparator = std::less<typename T>>
 class SafePriorityQueue
 {
 public:
 
-	SafePriorityQueue() = default;
-
+	//Ctors:
+	SafePriorityQueue() {}
 	SafePriorityQueue(const Comparator&);
+	SafePriorityQueue(const SafePriorityQueue&);
 
-	SafePriorityQueue(const SafePriorityQueue& src);
-
-	/*SafePriorityQueue& operator=(const SafePriorityQueue& src);*/
-
-public:
-
-	void push(T value)
-	{
-		std::lock_guard < std::mutex > lock(m_mutex);
-		m_pQueue.push(value);
-		m_condition_variable.notify_one();
+	//Ops:
+	SafePriorityQueue& operator=(const SafePriorityQueue& src) {
+		std::lock(m_mutex, src.m_mutex);
+		m_pQueue = src.m_pQueue;
+		return this;
 	}
 
-	void wait_and_pop(T& value)
-	{
-		std::unique_lock < std::mutex > lock(m_mutex);
-
-		m_condition_variable.wait(lock, [this]{return !m_pQueue.empty(); });
-		value = m_pQueue.front();
-		m_pQueue.pop();
-	}
-
-	std::shared_ptr < T > wait_and_pop()
-	{
-		std::unique_lock lock(m_mutex);
-
-		m_condition_variable.wait(lock, [this]{return !m_pQueue.empty(); });
-		auto result = std::make_shared(m_pQueue.front());
-		m_pQueue.pop();
-
-		return result;
-	} 
-	
-	std::shared_ptr < T > try_pop()
-	{
-		std::lock_guard lock(m_mutex);
-
-		if (m_pQueue.empty())
-		{
-			return std::shared_ptr < T >();
-		}
-
-		auto result = std::make_shared < T >(m_pQueue.front());
-		m_pQueue.pop();
-
-		return result;
-	}
-
-	bool empty() const
-	{
-		std::lock_guard < std::mutex > lock(m_mutex);
-		return m_pQueue.empty();
-	}
-
+	//Methods:
+	void push(T);
+	std::shared_ptr<T> wait_and_pop();
+	std::shared_ptr<T> try_pop();
+	bool empty() const;
 private:
-
 	std::priority_queue<T> m_pQueue;
 	std::condition_variable m_condition_variable;
 	mutable std::mutex m_mutex;
 };
 
+//Ctors:
 template<typename T, typename Comparator>
 inline SafePriorityQueue<T, Comparator>::SafePriorityQueue(const Comparator& comparator)
 	: m_pQueue(comparator) {}
@@ -83,9 +43,36 @@ SafePriorityQueue<T, Comparator>::SafePriorityQueue(const SafePriorityQueue& src
 	m_pQueue = src.m_pQueue;
 }
 
-//template<typename T, typename Comparator>
-//SafePriorityQueue& SafePriorityQueue<T, Comparator>::operator=(const SafePriorityQueue& src) {
-//	std::lock(m_mutex, src.m_mutex);
-//	m_pQueue = src.m_pQueue;
-//	return this;
-//}
+//Methods:
+template<typename T, typename Comparator>
+void SafePriorityQueue<T, Comparator>::push(T value) {
+	std::lock_guard lock(m_mutex);
+	m_pQueue.push(value);
+	m_condition_variable.notify_one();
+}
+
+template<typename T, typename Comparator>
+std::shared_ptr<T> SafePriorityQueue<T, Comparator>::wait_and_pop() {
+	std::unique_lock lock(m_mutex);
+	m_condition_variable.wait(lock, [this] {return !m_pQueue.empty(); });
+	auto result = std::make_shared<T>(m_pQueue.top());
+	m_pQueue.pop();
+	return result;
+}
+
+template<typename T, typename Comparator>
+std::shared_ptr<T> SafePriorityQueue<T, Comparator>::try_pop() {
+	std::lock_guard lock(m_mutex);
+	if (m_pQueue.empty()) {
+		return std::shared_ptr<T>();
+	}
+	auto result = std::make_shared<T>(m_pQueue.top());
+	m_pQueue.pop();
+	return result;
+}
+
+template<typename T, typename Comparator>
+bool SafePriorityQueue<T, Comparator>::empty() const {
+	std::lock_guard lock(m_mutex);
+	return m_pQueue.empty();
+}
