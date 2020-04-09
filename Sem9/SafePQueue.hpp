@@ -14,11 +14,7 @@ public:
 	SafePriorityQueue(const SafePriorityQueue&);
 
 	//Ops:
-	SafePriorityQueue& operator=(const SafePriorityQueue& src) {
-		std::lock(m_mutex, src.m_mutex);
-		m_pQueue = src.m_pQueue;
-		return this;
-	}
+	SafePriorityQueue& operator=(const SafePriorityQueue& src);
 
 	//Methods:
 	void push(T);
@@ -74,4 +70,11 @@ template<typename T, typename Comparator>
 bool SafePriorityQueue<T, Comparator>::empty() const {
 	std::lock_guard lock(m_mutex);
 	return m_pQueue.empty();
+}
+
+template<typename T, typename Comparator>
+SafePriorityQueue<T, Comparator>& SafePriorityQueue<T, Comparator>::operator=(const SafePriorityQueue& src) {
+	std::lock(m_mutex, src.m_mutex);
+	m_pQueue = src.m_pQueue;
+	return this;
 }
