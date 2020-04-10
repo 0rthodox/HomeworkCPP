@@ -1,6 +1,6 @@
 #include "Pi.hpp"
 #include "SafePQueue.hpp"
-#include "DNASearcher.h"
+#include "DNASearcher.hpp"
 #include <iostream>
 #include <string>
 #include <thread>

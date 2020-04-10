@@ -8,7 +8,8 @@
 
 class DNASearcher {
 public:
-	DNASearcher(const std::string& dna);
+	DNASearcher(const std::string& dna) :
+		m_data(dna) {}
 	inline auto operator()(const std::string&);
 private:
 	inline auto search(size_t begin, size_t end, const std::string_view& toSearch);
@@ -16,11 +17,7 @@ private:
 	std::mutex outputMutex;
 };
 
-//Ctor:
-DNASearcher::DNASearcher(const std::string& dna) :
-	m_data(dna) {}
-
-
+//Methods:
 inline auto DNASearcher::search(size_t begin, size_t end, const std::string_view& toSearch) {
 	std::string_view data{m_data};
 	data = data.substr(begin, end - begin + toSearch.size());
@@ -49,4 +46,3 @@ inline auto DNASearcher::operator()(const std::string& toSearch) {
 	return indexes;
 }
 
-//Methods:

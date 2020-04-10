@@ -29,7 +29,7 @@
     <ClInclude Include="Sem9\SafePQueue.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Sem9\DNASearcher.h">
+    <ClInclude Include="Sem9\DNASearcher.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
