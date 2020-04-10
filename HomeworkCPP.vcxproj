@@ -22,6 +22,7 @@
     <ClCompile Include="Sem9\main9.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem9\DNASearcher.h" />
     <ClInclude Include="Sem9\Pi.hpp" />
     <ClInclude Include="Sem9\RandomGenerator.h" />
     <ClInclude Include="Sem9\SafePQueue.hpp" />
