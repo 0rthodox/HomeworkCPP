@@ -31,7 +31,7 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 	//Launching threads
 	std::vector<std::thread> threads;
 	for (auto i = 0u; i < N; ++i) {
-		threads.push_back(std::thread([&stack, &flag] {
+		threads.push_back(std::thread([&stack, &flag] () mutable {
 			while (!flag.load()) {
 				std::this_thread::yield();
 			}
@@ -46,14 +46,14 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 			}
 			//std::cerr << "Finished writing" << std::endl;
 			}));
-		threads.push_back(std::thread([&stack, &tempVal, &flag] {
+		threads.push_back(std::thread([&stack, &tempVal, &flag] () mutable {
 			while (!flag.load()) {
 				std::this_thread::yield();
 			}
 			for (auto i = 0u; i <= M; ++i) {
 				try {
-
-					auto x = stack.pop();
+					T tempStr;
+					stack.pop(tempStr);
 				}
 				catch (std::exception& ex) {
 					std::cerr << ex.what();
