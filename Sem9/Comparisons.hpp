@@ -14,6 +14,12 @@
 
 constexpr size_t M = 1'000'000;
 
+
+struct S
+{
+	char s[65];
+};
+
 template <template<class> class Stack, class T>
 auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 				   std::thread::hardware_concurrency() / 2 :
@@ -23,11 +29,11 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 	std::atomic<bool> flag = false;
 	Stack<T> stack/*(M * N)*/;
 	/*RandomGenerator<T> Генератор(T(), static_cast<T>(M * N));*/
-	for (auto i = 0u; i <= M; ++i) {
-		stack.push(/*Генератор()*/T(65, 'N'));
+	for (auto i = 0u; i <= M * N; ++i) {
+		S e;
+		stack.push(/*Генератор()*/e);
 	}
 	T tempVal;
-	std::cerr << stack.size() << std::endl;
 	//Launching threads
 	std::vector<std::thread> threads;
 	for (auto i = 0u; i < N; ++i) {
@@ -37,8 +43,8 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 			}
 			for (auto i = 0u; i <= M; ++i) {
 				try {
-
-					stack.push(0);
+					S e;
+					 stack.push(e);
 				}
 				catch (std::exception& ex) {
 					std::cerr << ex.what();
@@ -53,7 +59,7 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 			for (auto i = 0u; i <= M; ++i) {
 				try {
 					T tempStr;
-					stack.pop(tempStr);
+					stack.wait_and_pop(tempStr);
 				}
 				catch (std::exception& ex) {
 					std::cerr << ex.what();

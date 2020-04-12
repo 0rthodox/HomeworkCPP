@@ -33,8 +33,8 @@ int main() {
 	//	});
 
 	//Test 4
-	//testStack<boost::lockfree::stack, int>(4, 4);
-	testStack<Threadsafe_Stack, std::string>(4, 4);
+	//testStack<boost::lockfree::queue, S>(4, 4);
+	testStack<Threadsafe_Queue, S>(4, 4);
 
 }
 
