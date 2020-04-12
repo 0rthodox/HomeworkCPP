@@ -27,7 +27,7 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 		stack.push(/*Генератор()*/T(65, 'N'));
 	}
 	T tempVal;
-
+	std::cerr << stack.size() << std::endl;
 	//Launching threads
 	std::vector<std::thread> threads;
 	for (auto i = 0u; i < N; ++i) {

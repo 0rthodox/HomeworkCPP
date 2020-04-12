@@ -21,6 +21,10 @@ public:
 
 public:
 
+	size_t size() {
+		return m_data.size();
+	}
+
 	void push(T value)
 	{
 		std::lock_guard < std::mutex > lock(m_mutex);
