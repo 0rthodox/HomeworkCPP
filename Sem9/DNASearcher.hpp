@@ -12,14 +12,14 @@ public:
 		m_data(dna) {}
 	inline auto operator()(const std::string&);
 private:
-	inline auto search(size_t begin, size_t end, const std::string_view& toSearch);
-	inline auto find(size_t begin, size_t end, const std::string_view& toSearch);
+	inline auto search(size_t begin, size_t end, const std::string& toSearch);
+	inline auto find(size_t begin, size_t end, const std::string& toSearch);
 	std::string m_data;
 	std::mutex outputMutex;
 };
 
 //Methods:
-inline auto DNASearcher::search(size_t begin, size_t end, const std::string_view& toSearch) {
+inline auto DNASearcher::search(size_t begin, size_t end, const std::string& toSearch) {
 	std::string_view data{m_data};
 	data = data.substr(begin, end - begin);
 	std::set<size_t> indexes;
@@ -31,7 +31,7 @@ inline auto DNASearcher::search(size_t begin, size_t end, const std::string_view
 	return indexes;
 }
 
-inline auto DNASearcher::find(size_t begin, size_t end, const std::string_view& toSearch) {
+inline auto DNASearcher::find(size_t begin, size_t end, const std::string& toSearch) {
 	std::set<size_t> indexes;
 	auto i = begin;
 	do {
@@ -51,7 +51,7 @@ inline auto DNASearcher::operator()(const std::string& toSearch) {
 	for (size_t i = 1; i < numThreads; ++i) {
 		futures.push_back(std::async(std::launch::async, &DNASearcher::find, this, blockSize * (i - 1), blockSize * i, toSearch));
 	}
-	auto indexes = find(blockSize * (numThreads - 1), m_data.size(), toSearch);
+	auto indexes = find(blockSize * (numThreads - 1), m_data.size(), std::cref(toSearch));
 	std::for_each(futures.begin(), futures.end(), [&indexes](auto& f) {
 		indexes.merge(f.get());
 		});
