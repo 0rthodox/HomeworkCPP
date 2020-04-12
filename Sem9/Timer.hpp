@@ -1,0 +1,46 @@
+#pragma once
+
+#ifndef _TIMER_H_
+#define _TIMER_H_
+
+#include <numeric>
+#include <chrono>
+#include <vector>
+
+template <typename Accuracy>
+class Timer {
+	using clock_t = std::chrono::steady_clock;
+	using timepoint_t = clock_t::time_point;
+	using duration_t = clock_t::duration;
+
+public:
+	Timer() : ticking(true), start(clock_t::now()), time_periods() {
+	}
+	void pause() {
+		updateIfTicking();
+		ticking = false;
+	}
+	void resume() {
+		start = clock_t::now();
+		ticking = true;
+	}
+	auto getDuration() {
+		updateIfTicking();
+		return std::chrono::duration_cast<Accuracy>(time_periods).count();
+	}
+	~Timer() noexcept {
+		updateIfTicking();
+	}
+
+private:
+	bool ticking;
+	duration_t time_periods;
+	timepoint_t start;
+	void updateIfTicking() {
+		if (ticking) {
+			time_periods += (clock_t::now() - start);
+		}
+	}
+};
+
+#endif

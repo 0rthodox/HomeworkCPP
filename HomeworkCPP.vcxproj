@@ -22,10 +22,14 @@
     <ClCompile Include="Sem9\main9.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem9\Comparisons.hpp" />
     <ClInclude Include="Sem9\DNASearcher.hpp" />
     <ClInclude Include="Sem9\Pi.hpp" />
     <ClInclude Include="Sem9\RandomGenerator.h" />
     <ClInclude Include="Sem9\SafePQueue.hpp" />
+    <ClInclude Include="Sem9\threadsafe_queue.hpp" />
+    <ClInclude Include="Sem9\threadsafe_stack.hpp" />
+    <ClInclude Include="Sem9\Timer.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
