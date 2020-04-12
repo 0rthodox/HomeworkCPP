@@ -49,9 +49,9 @@ inline auto DNASearcher::operator()(const std::string& toSearch) {
 	auto blockSize = m_data.size() / numThreads;
 	std::vector<std::future<std::set<size_t>>> futures;
 	for (size_t i = 1; i < numThreads; ++i) {
-		futures.push_back(std::async(std::launch::async, &DNASearcher::find, this, blockSize * (i - 1), blockSize * i, toSearch));
+		futures.push_back(std::async(std::launch::async, &DNASearcher::find, this, blockSize * (i - 1), blockSize * i, std::cref(toSearch)));
 	}
-	auto indexes = find(blockSize * (numThreads - 1), m_data.size(), std::cref(toSearch));
+	auto indexes = find(blockSize * (numThreads - 1), m_data.size(), toSearch);
 	std::for_each(futures.begin(), futures.end(), [&indexes](auto& f) {
 		indexes.merge(f.get());
 		});
