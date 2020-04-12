@@ -22,9 +22,9 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 	//Preparing data
 	std::atomic<bool> flag = false;
 	Stack<T> stack/*(M * N)*/;
-	RandomGenerator<T> Генератор(T(), static_cast<T>(M * N));
-	for (auto i = 0u; i < M * N; ++i) {
-		stack.push(Генератор());
+	/*RandomGenerator<T> Генератор(T(), static_cast<T>(M * N));*/
+	for (auto i = 0u; i <= M; ++i) {
+		stack.push(/*Генератор()*/T(65, 'N'));
 	}
 	T tempVal;
 
@@ -36,7 +36,13 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 				std::this_thread::yield();
 			}
 			for (auto i = 0u; i <= M; ++i) {
-				stack.push(0);
+				try {
+
+					stack.push(0);
+				}
+				catch (std::exception& ex) {
+					std::cerr << ex.what();
+				}
 			}
 			//std::cerr << "Finished writing" << std::endl;
 			}));
@@ -45,7 +51,13 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 				std::this_thread::yield();
 			}
 			for (auto i = 0u; i <= M; ++i) {
-				stack.try_pop(tempVal);
+				try {
+
+					auto x = stack.pop();
+				}
+				catch (std::exception& ex) {
+					std::cerr << ex.what();
+				}
 			}
 			//std::cerr << "Finished reading" << std::endl;
 			}));
@@ -68,7 +80,14 @@ auto testStack(size_t minN = 2, size_t maxN = 8,
 	std::fstream output("Sem9" / path, std::ios_base::out);
 
 	for (size_t i = minN; i <= maxN; ++i) {
-		output << testStackOnce<Stack, T>(i);
+		try {
+
+
+			output << testStackOnce<Stack, T>(i);
+		}
+		catch (std::exception& ex) {
+			std::cerr << ex.what();
+		}
 	}
 
 }

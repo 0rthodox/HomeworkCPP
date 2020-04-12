@@ -55,6 +55,26 @@ public:
 		m_data.pop();
 	}
 
+	void wait_and_pop(T& value)
+	{
+		std::unique_lock < std::mutex > lock(m_mutex);
+
+		m_condition_variable.wait(lock, [this] {return !m_data.empty(); });
+		value = m_data.top();
+		m_data.pop();
+	}
+
+	std::shared_ptr < T > wait_and_pop()
+	{
+		std::unique_lock < std::mutex > lock(m_mutex);
+
+		m_condition_variable.wait(lock, [this] {return !m_data.empty(); });
+		auto result = std::make_shared < T >(m_data.top());
+		m_data.pop();
+
+		return result;
+	}
+
 	bool empty() const
 	{
 		std::lock_guard < std::mutex > lock(m_mutex);
@@ -67,5 +87,6 @@ private:
 
 private:
 
+	std::condition_variable m_condition_variable;
 	mutable std::mutex m_mutex;
 };
