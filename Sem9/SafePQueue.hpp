@@ -4,7 +4,7 @@
 #include <queue>
 #include <memory>
 
-template <class T, class Container = std::vector<T>, class Comparator = std::less<typename Container::value_type>>
+template <typename T, typename Container = std::vector<T>, typename Comparator = std::less<T>>
 class SafePriorityQueue {
 public:
 
@@ -42,20 +42,20 @@ private:
 
 
 //Methods:
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 void SafePriorityQueue<T, Container, Comparator>::push(T value) {
 	std::lock_guard lock(m_mutex);
 	m_pQueue.push(value);
 	m_condition_variable.notify_one();
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 void SafePriorityQueue<T, Container, Comparator>::swap(SafePriorityQueue& other) {
 	std::scoped_lock lock{ m_mutex, other.m_mutex };
 	m_pQueue.swap(other.m_pQueue);
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 std::shared_ptr<T> SafePriorityQueue<T, Container, Comparator>::wait_and_pop() {
 	std::unique_lock lock(m_mutex);
 	m_condition_variable.wait(lock, [this] {return !m_pQueue.empty(); });
@@ -64,7 +64,7 @@ std::shared_ptr<T> SafePriorityQueue<T, Container, Comparator>::wait_and_pop() {
 	return result;
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 std::shared_ptr<T> SafePriorityQueue<T, Container, Comparator>::try_pop() {
 	std::lock_guard lock(m_mutex);
 	if (m_pQueue.empty()) {
@@ -75,13 +75,13 @@ std::shared_ptr<T> SafePriorityQueue<T, Container, Comparator>::try_pop() {
 	return result;
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 bool SafePriorityQueue<T, Container, Comparator>::empty() const {
 	std::lock_guard lock(m_mutex);
 	return m_pQueue.empty();
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 bool SafePriorityQueue<T, Container, Comparator>::try_pop(T& value)
 {
 	std::lock_guard lock(m_mutex);
@@ -93,7 +93,7 @@ bool SafePriorityQueue<T, Container, Comparator>::try_pop(T& value)
 	return true;
 }
 
-template<class T, class Container, class Comparator>
+template<typename T, typename Container, typename Comparator>
 void SafePriorityQueue<T, Container, Comparator>::wait_and_pop(T& value)
 {
 	std::unique_lock lock(m_mutex);
