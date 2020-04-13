@@ -23,119 +23,26 @@
 
 constexpr size_t M = 1'000'000;
 
+struct Z {
+	char dynamicVar = INDEPENDENT_CHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+};
+
 
 struct S
 {
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	double dynamicVar = INDEPENDENT_DOUBLE;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	char dynamicVar = INDEPENDENT_CHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
-	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	char data[100];
+
+	S() = default;
+
+	S(const struct S& other) {
+		std::memcpy(&data, &(other.data), 100);
+	}
+
 };
+
+
 
 template <template<class> class Stack, class T>
 auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
