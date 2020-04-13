@@ -6,6 +6,8 @@
 #include <string>
 #include <thread>
 
+
+
 int main() {
 	////Test 1
 	//std::cout << PiParallel()() << std::endl;
@@ -33,8 +35,11 @@ int main() {
 	//	});
 
 	//Test 4
-	//testStack<boost::lockfree::queue, S>(4, 4);
-	testStack<Threadsafe_Queue, S>(4, 4);
+#ifdef USING_BOOST
+		testStack<boost::lockfree::queue, S>(4, 4);
+#else
+		testStack<Threadsafe_Queue, S>(4, 4);
+#endif
 
 }
 

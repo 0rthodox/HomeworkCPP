@@ -89,7 +89,7 @@ public:
 
 private:
 
-	std::queue < T >		m_queue;
+	std::queue <T>		m_queue;
 	std::condition_variable m_condition_variable;
 
 private:

@@ -1,6 +1,16 @@
+#define INTERNAL_NESTED_DYNAMIC_ALLOCATOR(b, lineNum) b ## lineNum
+#define INTERNAL_DYNAMIC_ALLOCATOR(b, lineNum) INTERNAL_NESTED_DYNAMIC_ALLOCATOR(b, lineNum)
+#define dynamicVar INTERNAL_DYNAMIC_ALLOCATOR(var, __LINE__)
+
+#define INDEPENDENT_CHAR static_cast<char>(__LINE__)
+#define INDEPENDENT_DOUBLE static_cast<double>(__LINE__)
+#define INDEPENDENT_WCHAR static_cast<wchar_t>(__LINE__)
+
 #pragma once
 
-#include <boost/lockfree/stack.hpp>
+//#define USING_BOOST
+
+
 #include <boost/lockfree/queue.hpp>
 #include <filesystem>
 #include <fstream>
@@ -8,7 +18,6 @@
 #include <sstream>
 #include <thread>
 
-#include "threadsafe_stack.hpp"
 #include "threadsafe_queue.hpp"
 #include "Timer.hpp"
 
@@ -17,7 +26,115 @@ constexpr size_t M = 1'000'000;
 
 struct S
 {
-	char s[65];
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	double dynamicVar = INDEPENDENT_DOUBLE;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	char dynamicVar = INDEPENDENT_CHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
+	wchar_t dynamicVar = INDEPENDENT_WCHAR;
 };
 
 template <template<class> class Stack, class T>
@@ -27,7 +144,11 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 
 	//Preparing data
 	std::atomic<bool> flag = false;
-	Stack<T> stack/*(M * N)*/;
+#ifdef USING_BOOST
+	Stack<T> stack{ M * N };
+#else
+	Stack<T> stack{};
+#endif
 	/*RandomGenerator<T> Генератор(T(), static_cast<T>(M * N));*/
 	for (auto i = 0u; i <= M * N; ++i) {
 		S e;
@@ -59,7 +180,11 @@ auto testStackOnce(size_t N = std::thread::hardware_concurrency() ?
 			for (auto i = 0u; i <= M; ++i) {
 				try {
 					T tempStr;
+#ifdef USING_BOOST
+					stack.pop(tempStr);
+#else
 					stack.wait_and_pop(tempStr);
+#endif
 				}
 				catch (std::exception& ex) {
 					std::cerr << ex.what();

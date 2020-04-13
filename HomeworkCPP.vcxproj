@@ -28,8 +28,10 @@
     <ClInclude Include="Sem9\RandomGenerator.h" />
     <ClInclude Include="Sem9\SafePQueue.hpp" />
     <ClInclude Include="Sem9\threadsafe_queue.hpp" />
-    <ClInclude Include="Sem9\threadsafe_stack.hpp" />
     <ClInclude Include="Sem9\Timer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
