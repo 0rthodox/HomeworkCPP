@@ -36,9 +36,9 @@ int main() {
 
 	//Test 4
 #ifdef USING_BOOST
-		testStack<boost::lockfree::queue, S>(4, 4);
+		testStack<boost::lockfree::spsc_queue, S>(1, 1);
 #else
-		testStack<Threadsafe_Queue, S>(4, 4);
+		testStack<Threadsafe_Queue, S>(1, 1);
 #endif
 
 }

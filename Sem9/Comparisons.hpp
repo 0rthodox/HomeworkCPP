@@ -8,9 +8,10 @@
 
 #pragma once
 
-//#define USING_BOOST
+#define USING_BOOST
 
 
+#include <boost/lockfree/spsc_queue.hpp>
 #include <boost/lockfree/queue.hpp>
 #include <filesystem>
 #include <fstream>
