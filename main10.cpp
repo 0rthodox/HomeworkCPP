@@ -24,15 +24,24 @@ using Data = boost::interprocess::stable_vector<Message, DataAllocator>;
 
 std::atomic_bool timeToBreak = false;
 
-void reader(Data* data, size_t& keptSize) {
+void reader(Data* data, size_t& keptSize, Mutex* mutex, ConditionVariable* condition) {
 	
-	while (true) {
+	/*while (true) {
 		if (data->size() > keptSize) {
 			std::cout << data->back() << std::endl;
 			++keptSize;
 		}
 		if (timeToBreak) {
 			break;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}*/
+	while (!timeToBreak) {
+		std::unique_lock lock(*mutex);
+		condition->wait(lock, [&data, &keptSize] { return data->size() > keptSize; });
+		if (data->size() > keptSize) {
+			std::cout << data->back() << std::endl;
+			++keptSize;
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
@@ -67,7 +76,7 @@ int main(int argc, char** argv)
 
 	std::string message;
 
-	std::thread thread{ reader, data, std::ref(keptSize)};
+	std::thread thread{ reader, data, std::ref(keptSize), mutex, condition};
 	
 	auto i = 0u;
 		while (std::getline(std::cin, message)) {
@@ -78,11 +87,11 @@ int main(int argc, char** argv)
 			} else {
 				Message bMessage(message.data(), allocator);
 				{
-					//std::lock_guard guard(mutex);
+					std::lock_guard guard(*mutex);
 					data->push_back(bMessage);
 				}
 				++keptSize;
-				//condition->notify_all();
+				condition->notify_all();
 			}
 	}
 
