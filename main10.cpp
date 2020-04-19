@@ -25,25 +25,16 @@ using Data = boost::interprocess::stable_vector<Message, DataAllocator>;
 std::atomic_bool timeToBreak = false;
 
 void reader(Data* data, size_t& keptSize, Mutex* mutex, ConditionVariable* condition) {
-	
-	/*while (true) {
-		if (data->size() > keptSize) {
-			std::cout << data->back() << std::endl;
-			++keptSize;
-		}
+	while (true) {
+		std::unique_lock lock(*mutex);
+		condition->wait(lock, [&data, &keptSize] { return data->size() > keptSize || timeToBreak; });
 		if (timeToBreak) {
 			break;
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-	}*/
-	while (!timeToBreak) {
-		std::unique_lock lock(*mutex);
-		condition->wait(lock, [&data, &keptSize] { return data->size() > keptSize; });
 		if (data->size() > keptSize) {
 			std::cout << data->back() << std::endl;
 			++keptSize;
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 	}
 
 }
@@ -56,7 +47,7 @@ int main(int argc, char** argv)
 	const std::string shared_memory_name = "managed_shared_memory";
 
 	boost::interprocess::managed_shared_memory shared_memory(
-		boost::interprocess::open_or_create, shared_memory_name.c_str(), 1024);
+		boost::interprocess::open_or_create, shared_memory_name.c_str(), 10240);
 	MessageAllocator allocator{ shared_memory.get_segment_manager() };
 	
 	auto data = shared_memory.find_or_construct<Data>("Data")(allocator);
@@ -82,6 +73,7 @@ int main(int argc, char** argv)
 		while (std::getline(std::cin, message)) {
 			if (message == "\\exit") {
 				timeToBreak = true;
+				condition->notify_all();
 				thread.join();
 				break;
 			} else {
