@@ -11,19 +11,16 @@
 #include <boost/interprocess/containers/string.hpp>
 #include <boost/interprocess/containers/stable_vector.hpp>
 #include <shared_mutex>
-using StringAllocator = boost::interprocess::allocator<char, boost::interprocess::managed_shared_memory::segment_manager>;
-using String = boost::interprocess::basic_string<char, std::char_traits<char>, StringAllocator>;
-using Allocator = boost::interprocess::allocator<String, StringAllocator>;
-using Stack = boost::interprocess::stable_vector<String, Allocator>;
+
+using Manager = boost::interprocess::managed_shared_memory::segment_manager;
 using Mutex = boost::interprocess::interprocess_mutex;
 using ConditionVariable = boost::interprocess::interprocess_condition;
 
-typedef boost::interprocess::managed_shared_memory::segment_manager                       segment_manager_t;
-typedef boost::interprocess::allocator<void, segment_manager_t>                           void_allocator;
-typedef boost::interprocess::allocator<char, segment_manager_t>                           char_allocator;
-typedef boost::interprocess::basic_string<char, std::char_traits<char>, char_allocator>   char_string;
-typedef boost::interprocess::allocator<char_string, segment_manager_t>                    char_string_allocator;
-typedef boost::interprocess::stable_vector<char_string, char_string_allocator>                   Data;
+using MessageAllocator = boost::interprocess::allocator<char, Manager>;
+using Message = boost::interprocess::basic_string<char, std::char_traits<char>, MessageAllocator>;
+
+using DataAllocator = boost::interprocess::allocator<Message, Manager>;
+using Data = boost::interprocess::stable_vector<Message, DataAllocator>;
 
 std::atomic_bool timeToBreak = false;
 
@@ -51,7 +48,7 @@ int main(int argc, char** argv)
 
 	boost::interprocess::managed_shared_memory shared_memory(
 		boost::interprocess::open_or_create, shared_memory_name.c_str(), 1024);
-	StringAllocator allocator{ shared_memory.get_segment_manager() };
+	MessageAllocator allocator{ shared_memory.get_segment_manager() };
 	
 	auto data = shared_memory.find_or_construct<Data>("Data")(allocator);
 
@@ -78,12 +75,15 @@ int main(int argc, char** argv)
 				timeToBreak = true;
 				thread.join();
 				break;
-			} else
+			} else {
+				Message bMessage(message.data(), allocator);
 				{
-					String bMessage(message.data(), allocator);
+					//std::lock_guard guard(mutex);
 					data->push_back(bMessage);
 				}
 				++keptSize;
+				//condition->notify_all();
+			}
 	}
 
 	boost::interprocess::shared_memory_object::remove(shared_memory_name.c_str());
