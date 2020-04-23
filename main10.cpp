@@ -53,12 +53,17 @@ int main(int argc, char** argv)
 	auto data = shared_memory.find_or_construct<Data>("Data")(allocator);
 
 	const std::string mName = "mutex";
+	const std::string cMName = "cMutex";
 	const std::string cName = "cVariable";
 	const std::string uName = "users";
 
 	auto mutex =
 		shared_memory.find_or_construct<Mutex>(
 			mName.c_str())();
+	
+	auto cMutex =
+		shared_memory.find_or_construct<Mutex>(
+			cMName.c_str())();
 	auto condition =
 		shared_memory.find_or_construct<ConditionVariable>(
 			cName.c_str())();
@@ -66,7 +71,12 @@ int main(int argc, char** argv)
 	auto userCount = shared_memory.find_or_construct<size_t>(
 		uName.c_str())();
 
-	(*userCount)++;
+	{
+		std::scoped_lock lock(*cMutex);
+		(*userCount)++;
+	}
+
+	
 
 	std::atomic<size_t> keptSize = 0;
 
@@ -76,24 +86,24 @@ int main(int argc, char** argv)
 	
 	auto i = 0u;
 	while (std::getline(std::cin, message)) {
-		if (message == "EOF") {
-			timeToBreak = true;
-			condition->notify_all();
-			thread.join();
-			break;
-		} else {
-			Message bMessage(message.data(), allocator);
-			{
-				std::lock_guard guard(*mutex);
-				data->push_back(bMessage);
-			}
-			++keptSize;
-			condition->notify_all();
+		Message bMessage(message.data(), allocator);
+		{
+			std::lock_guard guard(*mutex);
+			data->push_back(bMessage);
 		}
+		++keptSize;
+		condition->notify_all();
+	}
+	timeToBreak = true;
+	condition->notify_all();
+	thread.join();
+
+	{
+		std::scoped_lock lock(*cMutex);
+		(*userCount)--;
 	}
 
-	if (!--*userCount) {
-		std::cout << *userCount << std::endl;
+	if (!(*userCount)) {
 		boost::interprocess::shared_memory_object::remove(shared_memory_name.c_str());
 	}
 
