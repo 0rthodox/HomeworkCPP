@@ -24,7 +24,7 @@ using Data = boost::interprocess::stable_vector<Message, DataAllocator>;
 
 std::atomic_bool timeToBreak = false;
 
-void reader(Data* data, size_t& keptSize, Mutex* mutex, ConditionVariable* condition) {
+void reader(Data* data, std::atomic<size_t>& keptSize, Mutex* mutex, ConditionVariable* condition) {
 	while (true) {
 		std::unique_lock lock(*mutex);
 		condition->wait(lock, [&data, &keptSize] { return data->size() > keptSize || timeToBreak; });
@@ -32,7 +32,7 @@ void reader(Data* data, size_t& keptSize, Mutex* mutex, ConditionVariable* condi
 			break;
 		}
 		if (data->size() > keptSize) {
-			std::cout << data->back() << std::endl;
+			std::cout << data->at(keptSize) << std::endl;
 			++keptSize;
 		}
 	}
@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 			cName.c_str())();
 
 
-	auto keptSize = data->size();
+	std::atomic<size_t> keptSize = 0;
 
 	std::string message;
 
@@ -71,7 +71,7 @@ int main(int argc, char** argv)
 	
 	auto i = 0u;
 		while (std::getline(std::cin, message)) {
-			if (message == "\\exit") {
+			if (message == "EOF") {
 				timeToBreak = true;
 				condition->notify_all();
 				thread.join();
