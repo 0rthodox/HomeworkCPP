@@ -53,28 +53,20 @@ int main(int argc, char** argv)
 	auto data = shared_memory.find_or_construct<Data>("Data")(allocator);
 
 	const std::string mName = "mutex";
-	const std::string cMName = "cMutex";
 	const std::string cName = "cVariable";
 	const std::string uName = "users";
 
 	auto mutex =
 		shared_memory.find_or_construct<Mutex>(
 			mName.c_str())();
-	
-	auto cMutex =
-		shared_memory.find_or_construct<Mutex>(
-			cMName.c_str())();
 	auto condition =
 		shared_memory.find_or_construct<ConditionVariable>(
 			cName.c_str())();
 
-	auto userCount = shared_memory.find_or_construct<size_t>(
+	auto userCount = shared_memory.find_or_construct<std::atomic<size_t>>(
 		uName.c_str())();
 
-	{
-		std::scoped_lock lock(*cMutex);
-		(*userCount)++;
-	}
+	(*userCount)++;
 
 	
 
@@ -98,12 +90,7 @@ int main(int argc, char** argv)
 	condition->notify_all();
 	thread.join();
 
-	{
-		std::scoped_lock lock(*cMutex);
-		(*userCount)--;
-	}
-
-	if (!(*userCount)) {
+	if (!--*userCount) {
 		boost::interprocess::shared_memory_object::remove(shared_memory_name.c_str());
 	}
 
