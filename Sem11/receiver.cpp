@@ -11,6 +11,17 @@ bool parseData(boost::asio::ip::tcp::socket& socket, std::string& message)
 	return message != "EOF";
 }
 
+
+void receive(boost::asio::ip::tcp::socket& socket) {
+	std::string name;
+	parseData(socket, name);
+
+	std::string message;
+	while (parseData(socket, message)) {
+		std::cout << name << ": " << message << std::endl;
+	}
+}
+
 int main()
 {
 	auto port = 3333u;
@@ -23,14 +34,21 @@ int main()
 	boost::asio::ip::tcp::socket socket(io_service);
 	acceptor.accept(socket);
 
-	std::string name;
-	if (!parseData(socket, name)) {
-		return EXIT_FAILURE;
-	}
-
+	std::cout << "Please input your name" << std::endl;
 	std::string message;
-	while (parseData(socket, message)) {
-		std::cout << name << ": " << message << std::endl;
-	}
+	std::getline(std::cin, message);
+	std::cout << "Now start messaging!" << std::endl;
+
+	std::thread thread{ receive, std::ref(socket) };
+
+	do {
+		message.push_back('\r');
+		boost::asio::write(socket, boost::asio::buffer(message));
+	} while (std::getline(std::cin, message));
+
+	boost::asio::write(socket, boost::asio::buffer("EOF\r"));
+
+	thread.join();
+
 	return EXIT_SUCCESS;
 }
