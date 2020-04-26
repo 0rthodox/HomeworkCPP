@@ -22,7 +22,7 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem11\main11.cpp" />
+    <ClCompile Include="Sem11\sender.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
