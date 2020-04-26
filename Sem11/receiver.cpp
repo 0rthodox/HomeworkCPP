@@ -7,9 +7,9 @@
 bool parseData(boost::asio::ip::tcp::socket& socket, std::string& message)
 {
 	boost::asio::streambuf buffer;
-	boost::asio::read_until(socket, buffer, '\r');
+	boost::asio::read_until(socket, buffer, '\n');
 	std::istream stream(&buffer);
-	stream >> message;
+	std::getline(stream, message);
 	return message != "EOF";
 }
 
@@ -48,11 +48,11 @@ int main()
 	std::thread thread{ receive, std::ref(socket) };
 
 	do {
-		message.push_back('\r');
+		message.push_back('\n');
 		boost::asio::write(socket, boost::asio::buffer(message));
 	} while (std::getline(std::cin, message));
 
-	boost::asio::write(socket, boost::asio::buffer("EOF\r"));
+	boost::asio::write(socket, boost::asio::buffer("EOF\n"));
 
 	thread.join();
 
