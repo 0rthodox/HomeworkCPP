@@ -2,6 +2,8 @@
 
 #include <boost/asio.hpp>
 
+//#define SPECIFIC_CLIENT
+
 bool parseData(boost::asio::ip::tcp::socket& socket, std::string& message)
 {
 	boost::asio::streambuf buffer;
@@ -24,9 +26,13 @@ void receive(boost::asio::ip::tcp::socket& socket) {
 
 int main()
 {
-	auto port = 3333u;
-	std::string ip = "127.0.0.1";
+	auto port = 8000u;
+#ifdef SPECIFIC_CLIENT
+	std::string ip = "93.175.5.75";
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string(ip), port);
+#else
+	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address_v4::any(), port);
+#endif
 	boost::asio::io_service io_service;
 	boost::asio::ip::tcp::acceptor acceptor(io_service, endpoint.protocol());
 	acceptor.bind(endpoint);

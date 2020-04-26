@@ -24,8 +24,8 @@ void receive(boost::asio::ip::tcp::socket & socket){
 
 int main()
 {
-	std::string ip = "127.0.0.1";
-	auto port = 3333u;
+	std::string ip = "93.175.5.75";
+	auto port = 8000u;
 
 	boost::asio::ip::tcp::endpoint endpoint(
 		boost::asio::ip::address::from_string(ip), port);
