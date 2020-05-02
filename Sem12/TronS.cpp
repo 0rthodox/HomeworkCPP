@@ -3,8 +3,11 @@
 #include <thread>
 
 #include "RandomGenerator.h"
+#include <iostream>
+#include <boost/asio.hpp>
 
-#define elif else if
+#define ONLINE
+#define LOCAL
 
 using namespace sf;
 
@@ -31,6 +34,26 @@ enum Direction {
 	UP = 3
 };
 
+bool parseData(boost::asio::ip::tcp::socket& socket, Direction& direction, GameStatus& status)
+{
+	boost::asio::streambuf buffer;
+	boost::asio::read_until(socket, buffer, '\n');
+	std::istream stream(&buffer);
+	if (!stream) {
+		return true;
+		std::cout << "Stream is empty!" << std::endl;
+	}
+	else {
+		int cDirection;
+		bool cStatus;
+		char ignored;
+		stream >> cStatus >> ignored >> cDirection;
+		direction = static_cast<Direction>(cDirection);
+		status = static_cast<GameStatus>(status);
+		return false;
+	}
+}
+
 class Player
 {
 private:
@@ -43,7 +66,7 @@ public:
 		x = RandomGenerator(0llu, W - 1)();
 		y = RandomGenerator(0llu, H - 1)();
 		color = c;
-		dir = static_cast<Direction>(RandomGenerator(1, 4)());
+		dir = static_cast<Direction>(RandomGenerator(0, 3)());
 	}
 	auto getDir() {
 		return dir;
@@ -117,11 +140,11 @@ int main()
 
 #ifdef ONLINE
 #ifdef LOCAL
-	std::string ip = "127.0.0.1"
+	std::string ip = "127.0.0.1";
 #else
 	std::string ip = "93.175.5.75";
 #endif
-	auto port = 8000u;
+	auto port = 3333;
 
 	boost::asio::ip::tcp::endpoint endpoint(
 		boost::asio::ip::address::from_string(ip), port);
@@ -129,6 +152,7 @@ int main()
 	boost::asio::ip::tcp::socket socket(io_service, endpoint.protocol());
 	socket.connect(endpoint);
 #endif
+	auto iter = 0u;
 
     while (window.isOpen())
     {
@@ -152,12 +176,12 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<int>(p1.getDir()) << static_cast<bool>(status);
+		dataStream << static_cast<bool>(status) << '|' << static_cast<int>(p1.getDir()) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-
+		std::cout << "Sent!" << std::endl;
 		Direction direction;
 		while (parseData(socket, direction, status));
-
+		std::cout << "Received, direction = " << direction << std::endl;
 
 		p2.setDir(direction);
 
@@ -174,9 +198,11 @@ int main()
 		}
 #endif
 
-
 		if (status == GameStatus::STOPPED) {
 			continue;
+			if (1000 == iter++) {
+				break;
+			}
 		}
 
 

@@ -6,7 +6,7 @@
 #include <boost/asio.hpp>
 #include "RandomGenerator.h"
 
-//#define ONLINE
+#define ONLINE
 
 using namespace sf;
 
@@ -39,12 +39,14 @@ bool parseData(boost::asio::ip::tcp::socket& socket, Direction& direction, GameS
 	boost::asio::read_until(socket, buffer, '\n');
 	std::istream stream(&buffer);
 	if (!stream) {
+		std::cout << "Stream is empty!" << std::endl;
 		return true;
 	}
 	else {
 		int cDirection;
+		char ignored;
 		bool cStatus;
-		stream >> cDirection >> cStatus;
+		stream >> cStatus >> ignored >> cDirection;
 		direction = static_cast<Direction>(cDirection);
 		status = static_cast<GameStatus>(status);
 		return false;
@@ -63,7 +65,7 @@ public:
 		x = RandomGenerator(0llu, W - 1)();
 		y = RandomGenerator(0llu, H - 1)();
 		color = c;
-		dir = static_cast<Direction>(RandomGenerator(1, 4)());
+		dir = static_cast<Direction>(RandomGenerator(0, 3)());
 	}
 	auto getDir() {
 		return dir;
@@ -136,7 +138,7 @@ int main()
 	auto status = GameStatus::GOES_ON;
 
 #ifdef ONLINE
-	auto port = 8000u;
+	auto port = 3333;
 #ifdef SPECIFIC_CLIENT
 	std::string ip = "93.175.5.75";
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string(ip), port);
@@ -172,12 +174,12 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<int>(p2.getDir()) << static_cast<bool>(status);
+		dataStream << static_cast<bool>(status) << '|' << static_cast<int>(p2.getDir()) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-
+		std::cout << "Sent!" << std::endl;
 		Direction direction;
 		while (parseData(socket, direction, status));
-
+		std::cout << "Received, direction = " << direction << std::endl;
 		
 		p1.setDir(direction);
 
