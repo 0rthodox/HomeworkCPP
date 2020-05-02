@@ -42,7 +42,7 @@ public:
 		return x;
 	}
 	void setX(int newX) {
-
+		x = newX;
 	}
 	auto getY() {
 		return y;
@@ -57,15 +57,15 @@ public:
 	{
 		if (dir == 0) {
 			y += 1;
-		}
-		if (dir == 1) {
+		} else if (dir == 1) {
 			x -= 1;
-		}
-		if (dir == 2) {
+		} else if (dir == 2) {
 			x += 1;
-		}
-		if (dir == 3) {
+		} else if (dir == 3) {
 			y -= 1;
+		}
+		else {
+			std::cout << "Unknown direction" << std::endl;
 		}
 
 		if (x >= W) {

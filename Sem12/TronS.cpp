@@ -109,7 +109,6 @@ int main()
                 window.close();
         }
 
-
 		if (Keyboard::isKeyPressed(Keyboard::Left) && p1.getDir() != Direction::RIGHT) {
 			p1.setDir(Direction::LEFT);
 		} if (Keyboard::isKeyPressed(Keyboard::Right) && p1.getDir() != Direction::LEFT) {
@@ -122,12 +121,11 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<int>(p2.getDir()) << ' ' << static_cast<bool>(status) << '\n';
+		dataStream << static_cast<int>(p1.getDir()) << ' ' << static_cast<int>(status) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-		std::cout << "Sent!" << std::endl;
+		std::cout << "Sent: " << static_cast<int>(p1.getDir()) << ' ' << static_cast<int>(status) << '\n';
 		Direction direction;
 		while (parseData(socket, direction, status));
-		std::cout << "Received, direction = " << direction << std::endl;
 
 		p2.setDir(direction);
 
@@ -145,10 +143,7 @@ int main()
 #endif
 
 		if (status == GameStatus::STOPPED) {
-			continue;
-			if (1000 == iter++) {
-				break;
-			}
+			break;
 		}
 
 

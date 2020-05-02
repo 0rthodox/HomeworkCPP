@@ -5,6 +5,7 @@
 
 #include <boost/asio.hpp>
 #include "RandomGenerator.h"
+#include "Player.hpp"
 
 #define ONLINE
 
@@ -16,22 +17,8 @@ enum FieldStatus {
 	SECOND = 2
 };
 
-constexpr size_t W = 600;
-constexpr size_t H = 480;
 int speed = 4;
 FieldStatus field[W][H] = { FieldStatus::EMPTY };
-
-enum GameStatus {
-	STOPPED = 0,
-	GOES_ON = 1
-};
-
-enum Direction {
-	DOWN = 0,
-	LEFT = 1,
-	RIGHT = 2,
-	UP = 3
-};
 
 template <typename Arg1, typename Arg2>
 bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& status)
@@ -53,70 +40,6 @@ bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& stat
 		return false;
 	}
 }
-
-class Player
-{
-private:
-	int x, y;
-	Direction dir;
-	Color color;
-public:
-	Player(Color c)
-	{
-		x = RandomGenerator(0llu, W - 1)();
-		y = RandomGenerator(0llu, H - 1)();
-		color = c;
-		dir = static_cast<Direction>(RandomGenerator(0, 3)());
-	}
-	auto getDir() {
-		return dir;
-	}
-	void setDir(Direction newDir) {
-		dir = newDir;
-	}
-	auto getX() {
-		return x;
-	}
-	void setX(int newX) {
-
-	}
-	auto getY() {
-		return y;
-	}
-	void setY(int newY) {
-		y = newY;
-	}
-	auto getColor() {
-		return color;
-	}
-	void tick() noexcept
-	{
-		if (dir == 0) {
-			y += 1;
-		}
-		if (dir == 1) {
-			x -= 1;
-		}
-		if (dir == 2) {
-			x += 1;
-		}
-		if (dir == 3) {
-			y -= 1;
-		}
-
-		if (x >= W) {
-			x = 0;
-		}  if (x < 0) {
-			x = W - 1;
-		}
-		if (y >= H) {
-			y = 0;
-		}
-		if (y < 0) {
-			y = H - 1;
-		}
-	}
-};
 
 void displayWinner(RenderWindow&, std::string&, const Sprite&);
 
@@ -171,6 +94,7 @@ int main()
 
 #endif
 
+	auto iter = 0u;
 	while (window.isOpen())
 	{
 		Event e;
@@ -179,7 +103,7 @@ int main()
 			if (e.type == Event::Closed)
 				window.close();
 		}	
-
+		
 		if (Keyboard::isKeyPressed(Keyboard::A) && p2.getDir() != Direction::RIGHT) {
 			p2.setDir(Direction::LEFT);
 		} if (Keyboard::isKeyPressed(Keyboard::D) && p2.getDir() != Direction::LEFT) {
@@ -192,12 +116,10 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<int>(p2.getDir()) << ' ' << static_cast<bool>(status) << '\n';
+		dataStream << static_cast<int>(p2.getDir()) << ' ' << static_cast<int>(status) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-		std::cout << "Sent!" << std::endl;
 		Direction direction;
 		while (parseData(socket, direction, status));
-		std::cout << "Received, direction = " << direction << std::endl;
 		
 		p1.setDir(direction);
 
@@ -215,7 +137,7 @@ int main()
 
 #endif
 		if (status == GameStatus::STOPPED) {
-			continue;
+			break;
 		}
 
 		for (int i = 0; i < speed; i++)
