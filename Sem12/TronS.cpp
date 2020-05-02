@@ -18,8 +18,8 @@ enum FieldStatus {
 	SECOND = 2
 };
 
-//constexpr size_t W = 600;
-//constexpr size_t H = 480;
+constexpr size_t W = 600;
+constexpr size_t H = 480;
 int speed = 4;
 FieldStatus field[W][H] = { FieldStatus::EMPTY };
 
@@ -38,7 +38,6 @@ bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& stat
 		int cDirection;
 		int cStatus;
 		stream >> cDirection >> cStatus;
-		std::cout << "Parsed data: " << cDirection << ' ' << cStatus << std::endl;
 		direction = static_cast<Arg1>(cDirection);
 		status = static_cast<Arg2>(cStatus);
 		return false;
@@ -51,14 +50,14 @@ void displayWinner(RenderWindow&, std::string&, const Sprite&);
 
 int main()
 {
-    RenderWindow window(VideoMode(W, H), "The Tron status!");
+    RenderWindow window(VideoMode(W, H), "Tron — First Player");
     window.setFramerateLimit(60);
 
     Texture texture;
     texture.loadFromFile("Sem12/background.jpg");
     Sprite sBackground(texture);
 
-    Player p1(Color::Red), p2(Color::Green); 
+    Player p1(Color::Red, W, H), p2(Color::Green, W, H); 
 
     Sprite sprite;
     RenderTexture t;
@@ -89,12 +88,10 @@ int main()
 
 	std::stringstream dataStream;
 	dataStream << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
-	std::cout << "Sent data: " << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
 	boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
 
 	int newX, newY;
 	parseData(socket, newX, newY);
-	std::cout << "Parsed directions: " << "x = " << newX << "y = " << newY << std::endl;
 	p2.setX(newX);
 	p2.setY(newY);
 #endif
@@ -123,7 +120,6 @@ int main()
 		std::stringstream dataStream;
 		dataStream << static_cast<int>(p1.getDir()) << ' ' << static_cast<int>(status) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-		std::cout << "Sent: " << static_cast<int>(p1.getDir()) << ' ' << static_cast<int>(status) << '\n';
 		Direction direction;
 		while (parseData(socket, direction, status));
 
