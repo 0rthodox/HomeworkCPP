@@ -8,10 +8,16 @@
 
 using namespace sf;
 
+enum FieldStatus {
+	EMPTY = 0,
+	FIRST = 1,
+	SECOND = 2
+};
+
 constexpr size_t W = 600;
 constexpr size_t H = 480;
 int speed = 4;
-bool field[W][H] = { 0 };
+FieldStatus field[W][H] = { FieldStatus::EMPTY };
 
 enum GameStatus {
 	STOPPED = 0,
@@ -109,6 +115,21 @@ int main()
 
     auto status = GameStatus::GOES_ON;
 
+#ifdef ONLINE
+#ifdef LOCAL
+	std::string ip = "127.0.0.1"
+#else
+	std::string ip = "93.175.5.75";
+#endif
+	auto port = 8000u;
+
+	boost::asio::ip::tcp::endpoint endpoint(
+		boost::asio::ip::address::from_string(ip), port);
+	boost::asio::io_service io_service;
+	boost::asio::ip::tcp::socket socket(io_service, endpoint.protocol());
+	socket.connect(endpoint);
+#endif
+
     while (window.isOpen())
     {
         Event e;
@@ -118,9 +139,6 @@ int main()
                 window.close();
         }
 
-		if (status == GameStatus::STOPPED) {
-			break;
-		}
 
 		if (Keyboard::isKeyPressed(Keyboard::Left) && p1.getDir() != Direction::RIGHT) {
 			p1.setDir(Direction::LEFT);
@@ -132,6 +150,19 @@ int main()
 			p1.setDir(Direction::DOWN);
 		}
 
+#ifdef ONLINE
+		std::stringstream dataStream;
+		dataStream << static_cast<int>(p1.getDir()) << static_cast<bool>(status);
+		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+
+		Direction direction;
+		while (parseData(socket, direction, status));
+
+
+		p2.setDir(direction);
+
+#else
+
 		if (Keyboard::isKeyPressed(Keyboard::A) && p2.getDir() != Direction::RIGHT) {
 			p2.setDir(Direction::LEFT);
 		} if (Keyboard::isKeyPressed(Keyboard::D) && p2.getDir() != Direction::LEFT) {
@@ -140,22 +171,29 @@ int main()
 			p2.setDir(Direction::UP);
 		} if (Keyboard::isKeyPressed(Keyboard::S) && p2.getDir() != Direction::UP) {
 			p2.setDir(Direction::DOWN);
-		}		
+		}
+#endif
+
+
+		if (status == GameStatus::STOPPED) {
+			continue;
+		}
+
 
         for(int i = 0; i < speed; i++)
 		{
             p1.tick();
 			p2.tick();
-			if (field[p1.getX()][p1.getY()] == 1) {
+			if (field[p1.getX()][p1.getY()] != FieldStatus::EMPTY) {
 				winner = "Player 2";
 				status = GameStatus::STOPPED;
 			}
-			if (field[p2.getX()][p2.getY()] == 1) {
+			if (field[p2.getX()][p2.getY()] != FieldStatus::EMPTY) {
 				winner = "Player 1";
 				status = GameStatus::STOPPED;
 			}
-            field[p1.getX()][p1.getY()] = 1; 
-            field[p2.getX()][p2.getY()] = 1;
+            field[p1.getX()][p1.getY()] = FieldStatus::FIRST; 
+            field[p2.getX()][p2.getY()] = FieldStatus::SECOND;
     
             CircleShape c(3);
             c.setPosition(static_cast<float>(p1.getX()), static_cast<float>(p1.getY()));
