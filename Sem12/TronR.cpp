@@ -33,7 +33,8 @@ enum Direction {
 	UP = 3
 };
 
-bool parseData(boost::asio::ip::tcp::socket& socket, Direction& direction, GameStatus& status)
+template <typename Arg1, typename Arg2>
+bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& status)
 {
 	boost::asio::streambuf buffer;
 	boost::asio::read_until(socket, buffer, '\n');
@@ -44,11 +45,11 @@ bool parseData(boost::asio::ip::tcp::socket& socket, Direction& direction, GameS
 	}
 	else {
 		int cDirection;
-		char ignored;
-		bool cStatus;
-		stream >> cStatus >> ignored >> cDirection;
-		direction = static_cast<Direction>(cDirection);
-		status = static_cast<GameStatus>(status);
+		int cStatus;
+		stream >> cDirection >> cStatus;
+		std::cout << "Parsed data: " << cDirection << ' ' << cStatus << std::endl;
+		direction = static_cast<Arg1>(cDirection);
+		status = static_cast<Arg2>(cStatus);
 		return false;
 	}
 }
@@ -76,8 +77,14 @@ public:
 	auto getX() {
 		return x;
 	}
+	void setX(int newX) {
+
+	}
 	auto getY() {
 		return y;
+	}
+	void setY(int newY) {
+		y = newY;
 	}
 	auto getColor() {
 		return color;
@@ -151,6 +158,17 @@ int main()
 	acceptor.listen();
 	boost::asio::ip::tcp::socket socket(io_service);
 	acceptor.accept(socket);
+
+	std::stringstream dataStream;
+	dataStream << static_cast<int>(p2.getX()) << ' ' << static_cast<int>(p2.getY()) << '\n';
+	std::cout << "Sent data: " << static_cast<int>(p2.getX()) << ' ' << static_cast<int>(p2.getY()) << '\n';
+	boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+	int newX, newY;
+	parseData(socket, newX, newY);
+	std::cout << "Parsed directions: " << "x = " << newX << "y = " << newY << std::endl;
+	p1.setX(newX);
+	p1.setY(newY);
+
 #endif
 
 	while (window.isOpen())
@@ -174,7 +192,7 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<bool>(status) << '|' << static_cast<int>(p2.getDir()) << '\n';
+		dataStream << static_cast<int>(p2.getDir()) << ' ' << static_cast<bool>(status) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
 		std::cout << "Sent!" << std::endl;
 		Direction direction;

@@ -5,6 +5,7 @@
 #include "RandomGenerator.h"
 #include <iostream>
 #include <boost/asio.hpp>
+#include "Player.hpp"
 
 #define ONLINE
 #define LOCAL
@@ -17,100 +18,34 @@ enum FieldStatus {
 	SECOND = 2
 };
 
-constexpr size_t W = 600;
-constexpr size_t H = 480;
+//constexpr size_t W = 600;
+//constexpr size_t H = 480;
 int speed = 4;
 FieldStatus field[W][H] = { FieldStatus::EMPTY };
 
-enum GameStatus {
-	STOPPED = 0,
-	GOES_ON = 1
-};
 
-enum Direction {
-	DOWN = 0,
-	LEFT = 1,
-	RIGHT = 2,
-	UP = 3
-};
-
-bool parseData(boost::asio::ip::tcp::socket& socket, Direction& direction, GameStatus& status)
+template <typename Arg1, typename Arg2>
+bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& status)
 {
 	boost::asio::streambuf buffer;
 	boost::asio::read_until(socket, buffer, '\n');
 	std::istream stream(&buffer);
 	if (!stream) {
-		return true;
 		std::cout << "Stream is empty!" << std::endl;
+		return true;
 	}
 	else {
 		int cDirection;
-		bool cStatus;
-		char ignored;
-		stream >> cStatus >> ignored >> cDirection;
-		direction = static_cast<Direction>(cDirection);
-		status = static_cast<GameStatus>(status);
+		int cStatus;
+		stream >> cDirection >> cStatus;
+		std::cout << "Parsed data: " << cDirection << ' ' << cStatus << std::endl;
+		direction = static_cast<Arg1>(cDirection);
+		status = static_cast<Arg2>(cStatus);
 		return false;
 	}
 }
 
-class Player
-{
-private:
-	int x, y;
-	Direction dir;
-	Color color;
-public:
-	Player(Color c)
-	{
-		x = RandomGenerator(0llu, W - 1)();
-		y = RandomGenerator(0llu, H - 1)();
-		color = c;
-		dir = static_cast<Direction>(RandomGenerator(0, 3)());
-	}
-	auto getDir() {
-		return dir;
-	}
-	void setDir(Direction newDir) {
-		dir = newDir;
-	}
-	auto getX() {
-		return x;
-	}
-	auto getY() {
-		return y;
-	}
-	auto getColor() {
-		return color;
-	}
-	void tick() noexcept
-	{
-		if (dir == 0) {
-			y += 1;
-		}
-		if (dir == 1) {
-			x -= 1;
-		}
-		if (dir == 2) {
-			x += 1;
-		}
-		if (dir == 3) {
-			y -= 1;
-		}
 
-		if (x >= W) {
-			x = 0;
-		}  if (x < 0) {
-			x = W - 1;
-		}
-		if (y >= H) {
-			y = 0;
-		}
-		if (y < 0) {
-			y = H - 1;
-		}
-	}
-};
 
 void displayWinner(RenderWindow&, std::string&, const Sprite&);
 
@@ -151,6 +86,17 @@ int main()
 	boost::asio::io_service io_service;
 	boost::asio::ip::tcp::socket socket(io_service, endpoint.protocol());
 	socket.connect(endpoint);
+
+	std::stringstream dataStream;
+	dataStream << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
+	std::cout << "Sent data: " << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
+	boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+
+	int newX, newY;
+	parseData(socket, newX, newY);
+	std::cout << "Parsed directions: " << "x = " << newX << "y = " << newY << std::endl;
+	p2.setX(newX);
+	p2.setY(newY);
 #endif
 	auto iter = 0u;
 
@@ -176,7 +122,7 @@ int main()
 
 #ifdef ONLINE
 		std::stringstream dataStream;
-		dataStream << static_cast<bool>(status) << '|' << static_cast<int>(p1.getDir()) << '\n';
+		dataStream << static_cast<int>(p2.getDir()) << ' ' << static_cast<bool>(status) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
 		std::cout << "Sent!" << std::endl;
 		Direction direction;

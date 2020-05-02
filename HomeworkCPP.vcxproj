@@ -25,6 +25,7 @@
     <ClCompile Include="Sem12\TronS.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Sem12\Player.hpp" />
     <ClInclude Include="Sem12\RandomGenerator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
