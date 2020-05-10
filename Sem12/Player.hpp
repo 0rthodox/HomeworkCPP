@@ -20,19 +20,21 @@ private:
 	int x, y;
 	Direction dir;
 	sf::Color color;
-	size_t W;
-	size_t H;
+	int m_width;
+	int m_height;
 public:
-	Player(sf::Color c, size_t W, size_t H) : 
+	Player(sf::Color c, int W, int H) : 
 		x(RandomGenerator(0, static_cast<int>(W - 1))()),
 		y(RandomGenerator(0, static_cast<int>(H - 1))()),
+		dir(static_cast<Direction>(RandomGenerator(0, 3)())),
 		color(c),
-		dir(static_cast<Direction>(RandomGenerator(0, 3)()))
+		m_width(W),
+		m_height(H)
 	{}
 	auto getDir() {
 		return dir;
 	}
-	void setDir(Direction newDir) {
+	void setDir(const Direction& newDir) {
 		dir = newDir;
 	}
 	auto getX() {
@@ -65,17 +67,17 @@ public:
 			throw std::exception("Illegal argument: unknown direction");
 		}
 
-		if (x >= W) {
+		if (x >= m_width) {
 			x = 0;
 		}
 		if (x < 0) {
-			x = W - 1;
+			x = m_width - 1;
 		}
-		if (y >= H) {
+		if (y >= m_height) {
 			y = 0;
 		}
 		if (y < 0) {
-			y = H - 1;
+			y = m_height - 1;
 		}
 	}
 };

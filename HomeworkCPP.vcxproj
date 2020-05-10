@@ -22,11 +22,17 @@
     <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem12\TronS.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="Sem12\GameLoop.hpp" />
     <ClInclude Include="Sem12\Player.hpp" />
     <ClInclude Include="Sem12\RandomGenerator.h" />
+    <ClInclude Include="Sem13\calculator.hpp" />
+    <ClInclude Include="Sem13\view.hpp" />
+    <ClInclude Include="Sem13\visualizer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Sem12\TronS.cpp" />
+    <ClCompile Include="Sem13\calculator.cpp" />
+    <ClCompile Include="Sem13\visualizer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -86,7 +92,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>C:\dev\boost_1_72_0\boost_1_72_0;D:\dev\SFML\include;C:\dev\boost_1_72_0\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
@@ -107,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\dev\boost_1_72_0\boost_1_72_0;D:\dev\SFML\include;D:\dev\SFML\include;C:\dev\boost_1_72_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
