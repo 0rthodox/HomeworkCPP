@@ -48,13 +48,10 @@ int main()
 
 	int newX1, newY1;
 	parseData(socket, newX1, newY1);
-	std::cout << newX1 << ' ' << newY1 << std::endl;
 	Player p1(sf::Color::Red, tronconsts::W, tronconsts::H, newX1, newY1);
 	int newX2, newY2;
 	parseData(socket, newX2, newY2);
-
-	std::cout << newX2 << ' ' << newY2 << std::endl;
-	Player p2(sf::Color::Green, tronconsts::W, tronconsts::H, newX2, newY2);
+		Player p2(sf::Color::Green, tronconsts::W, tronconsts::H, newX2, newY2);
 
 #endif
 

@@ -30,8 +30,8 @@
     <ClInclude Include="Sem13\visualizer.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Sem12\TronS.cpp" />
     <ClCompile Include="Sem13\calculator.cpp" />
+    <ClCompile Include="Sem13\main.cpp" />
     <ClCompile Include="Sem13\visualizer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

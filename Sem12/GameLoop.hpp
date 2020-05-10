@@ -25,7 +25,7 @@ namespace tronconsts {
 
 
 template <typename Socket, typename Arg1, typename Arg2>
-void parseData(/*boost::asio::ip::tcp::socket&*/ Socket& socket, Arg1& direction, Arg2& status)
+void parseData(Socket& socket, Arg1& direction, Arg2& status)
 {
 	boost::asio::streambuf buffer;
 	boost::asio::read_until(socket, buffer, '\n');

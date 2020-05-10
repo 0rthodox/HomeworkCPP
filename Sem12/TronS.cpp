@@ -10,25 +10,23 @@
 
 #define LOCAL
 
-using namespace sf;
-
 int main()
 {
-    RenderWindow window(VideoMode(tronconsts::W, tronconsts::H), "Tron — First Player");
+    sf::RenderWindow window(sf::VideoMode(tronconsts::W, tronconsts::H), "Tron — First Player");
     window.setFramerateLimit(60);
 
-    Texture texture;
+	sf::Texture texture;
     texture.loadFromFile("Sem12/background.jpg");
-    Sprite sBackground(texture);
+	sf::Sprite sBackground(texture);
 
 	RandomGenerator wGenerator(0, static_cast<int>(tronconsts::W - 1));
 	RandomGenerator hGenerator(0, static_cast<int>(tronconsts::H - 1));
 
-    Player p1(Color::Red, tronconsts::W, tronconsts::H, wGenerator(), hGenerator()),
-		p2(Color::Green, tronconsts::W, tronconsts::H, wGenerator(), hGenerator());
+    Player p1(sf::Color::Red, tronconsts::W, tronconsts::H, wGenerator(), hGenerator()),
+		p2(sf::Color::Green, tronconsts::W, tronconsts::H, wGenerator(), hGenerator());
 
-    Sprite sprite;
-    RenderTexture t;
+	sf::Sprite sprite;
+	sf::RenderTexture t;
 	
     t.create(tronconsts::W, tronconsts::H);
     t.setSmooth(true);
