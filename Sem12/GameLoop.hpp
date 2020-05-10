@@ -3,13 +3,20 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 
+#define ONLINE
+
+enum GameStatus {
+	STOPPED = 0,
+	GOES_ON = 1
+};
+
 enum FieldStatus {
 	EMPTY = 0,
 	FIRST = 1,
 	SECOND = 2
 };
 
-namespace tron {
+namespace tronconsts {
 	constexpr size_t W = 600;
 	constexpr size_t H = 480;
 	int speed = 4;
@@ -17,36 +24,32 @@ namespace tron {
 }
 
 
-template <typename Arg1, typename Arg2>
-bool parseData(boost::asio::ip::tcp::socket& socket, Arg1& direction, Arg2& status)
+template <typename Socket, typename Arg1, typename Arg2>
+void parseData(/*boost::asio::ip::tcp::socket&*/ Socket& socket, Arg1& direction, Arg2& status)
 {
 	boost::asio::streambuf buffer;
 	boost::asio::read_until(socket, buffer, '\n');
 	std::istream stream(&buffer);
-	if (!stream) {
-		std::cout << "Stream is empty!" << std::endl;
-		return true;
-	}
-	else {
-		int cDirection;
-		int cStatus;
-		stream >> cDirection >> cStatus;
-		direction = static_cast<Arg1>(cDirection);
-		status = static_cast<Arg2>(cStatus);
-		return false;
-	}
+	int cDirection;
+	int cStatus;
+	stream >> cDirection >> cStatus;
+	direction = static_cast<Arg1>(cDirection);
+	status = static_cast<Arg2>(cStatus);
 }
 
 class Gameloop {
 public:
 
 
-	Gameloop(sf::RenderWindow& window, sf::Sprite& sprite, Player& p1, Player& p2, sf::RenderTexture& t) :
-		m_window(window), m_sprite(sprite), m_fPlayer(p1), m_sPlayer(p2), m_rTexture(t)
+	Gameloop(sf::RenderWindow& window, sf::Sprite& sprite, Player& p1, Player& p2, sf::RenderTexture& t, boost::asio::ip::tcp::socket& socket) :
+		m_window(window), m_sprite(sprite), m_fPlayer(p1), m_sPlayer(p2), m_rTexture(t), m_socket(socket)
 	{
 	}
 
 	void operator()() {
+
+		auto status = GameStatus::GOES_ON;
+
 		while (m_window.isOpen()) {
 			sf::Event e;
 		while (m_window.pollEvent(e))
@@ -68,9 +71,13 @@ public:
 #ifdef ONLINE
 		std::stringstream dataStream;
 		dataStream << static_cast<int>(m_fPlayer.getDir()) << ' ' << static_cast<int>(status) << '\n';
-		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+		boost::asio::write(m_socket, boost::asio::buffer(dataStream.str()));
 		Direction direction;
-		while (parseData(socket, direction, status));
+		parseData(m_socket, direction, status);
+
+		if (status == GameStatus::STOPPED) {
+			return;
+		}
 
 		m_sPlayer.setDir(direction);
 
@@ -86,15 +93,15 @@ public:
 			m_sPlayer.setDir(Direction::DOWN);
 		}
 #endif
-		for (int i = 0; i < tron::speed; i++)
+		for (int i = 0; i < tronconsts::speed; i++)
 		{
 			m_fPlayer.tick();
 			m_sPlayer.tick();
-			if (tron::field[m_fPlayer.getX()][m_fPlayer.getY()] != FieldStatus::EMPTY || tron::field[m_sPlayer.getX()][m_sPlayer.getY()] != FieldStatus::EMPTY) {
-				return;
+			if (tronconsts::field[m_fPlayer.getX()][m_fPlayer.getY()] != FieldStatus::EMPTY || tronconsts::field[m_sPlayer.getX()][m_sPlayer.getY()] != FieldStatus::EMPTY) {
+				status = GameStatus::STOPPED;
 			}
-			tron::field[m_fPlayer.getX()][m_fPlayer.getY()] = FieldStatus::FIRST;
-			tron::field[m_sPlayer.getX()][m_sPlayer.getY()] = FieldStatus::SECOND;
+			tronconsts::field[m_fPlayer.getX()][m_fPlayer.getY()] = FieldStatus::FIRST;
+			tronconsts::field[m_sPlayer.getX()][m_sPlayer.getY()] = FieldStatus::SECOND;
 
 			sf::CircleShape c(3);
 			c.setPosition(static_cast<float>(m_fPlayer.getX()), static_cast<float>(m_fPlayer.getY()));
@@ -118,4 +125,5 @@ private:
 	Player& m_fPlayer;
 	Player& m_sPlayer;
 	sf::RenderTexture& m_rTexture;
+	boost::asio::ip::tcp::socket& m_socket;
 };

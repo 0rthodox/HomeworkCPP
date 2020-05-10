@@ -8,26 +8,25 @@
 #include "Player.hpp"
 #include "GameLoop.hpp"
 
-#define ONLINE
 #define LOCAL
 
 using namespace sf;
 
 int main()
 {
-    RenderWindow window(VideoMode(tron::W, tron::H), "Tron — First Player");
+    RenderWindow window(VideoMode(tronconsts::W, tronconsts::H), "Tron — First Player");
     window.setFramerateLimit(60);
 
     Texture texture;
     texture.loadFromFile("Sem12/background.jpg");
     Sprite sBackground(texture);
 
-    Player p1(Color::Red, tron::W, tron::H), p2(Color::Green, tron::W, tron::H);
+    Player p1(Color::Red, tronconsts::W, tronconsts::H), p2(Color::Green, tronconsts::W, tronconsts::H);
 
     Sprite sprite;
     RenderTexture t;
 	
-    t.create(tron::W, tron::H);
+    t.create(tronconsts::W, tronconsts::H);
     t.setSmooth(true);
     sprite.setTexture(t.getTexture());
     t.clear();
@@ -57,7 +56,7 @@ int main()
 	p2.setY(newY);
 #endif
 
-	Gameloop x{ window, sprite, p1, p2, t };
+	Gameloop(window, sprite, p1, p2, t, socket)();
 
     return 0;
 }

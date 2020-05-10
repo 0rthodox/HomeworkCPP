@@ -2,10 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "RandomGenerator.h"
 
-enum GameStatus {
-	STOPPED = 0,
-	GOES_ON = 1
-};
+
 
 enum Direction {
 	DOWN = 0,
