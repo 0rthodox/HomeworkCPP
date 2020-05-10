@@ -17,8 +17,8 @@ enum FieldStatus {
 };
 
 namespace tronconsts {
-	constexpr size_t W = 600;
-	constexpr size_t H = 480;
+	constexpr int W = 600;
+	constexpr int H = 480;
 	int speed = 4;
 	FieldStatus field[W][H] = { FieldStatus::EMPTY };
 }
