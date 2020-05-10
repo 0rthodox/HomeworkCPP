@@ -21,7 +21,11 @@ int main()
     texture.loadFromFile("Sem12/background.jpg");
     Sprite sBackground(texture);
 
-    Player p1(Color::Red, tronconsts::W, tronconsts::H), p2(Color::Green, tronconsts::W, tronconsts::H);
+	RandomGenerator wGenerator(0, static_cast<int>(tronconsts::W - 1));
+	RandomGenerator hGenerator(0, static_cast<int>(tronconsts::H - 1));
+
+    Player p1(Color::Red, tronconsts::W, tronconsts::H, wGenerator(), hGenerator()),
+		p2(Color::Green, tronconsts::W, tronconsts::H, wGenerator(), hGenerator());
 
     Sprite sprite;
     RenderTexture t;
@@ -46,14 +50,19 @@ int main()
 	boost::asio::ip::tcp::socket socket(io_service, endpoint.protocol());
 	socket.connect(endpoint);
 
-	std::stringstream dataStream;
-	dataStream << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
-	boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+	{
+		std::stringstream dataStream;
+		dataStream << static_cast<int>(p1.getX()) << ' ' << static_cast<int>(p1.getY()) << '\n';
+		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
 
-	int newX, newY;
-	parseData(socket, newX, newY);
-	p2.setX(newX);
-	p2.setY(newY);
+	}
+	{
+		std::stringstream dataStream;
+		dataStream << static_cast<int>(p2.getX()) << ' ' << static_cast<int>(p2.getY()) << '\n';
+		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+
+	}
+		
 #endif
 
 	Gameloop(window, sprite, p1, p2, t, socket)();

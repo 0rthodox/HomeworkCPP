@@ -124,19 +124,19 @@ void Visualizer::render()
 
     if (m_need_redraw) 
 	{
-		for (auto y = 0U; y < m_calculator.height(); ++y)
+		for (auto m_y = 0U; m_y < m_calculator.height(); ++m_y)
 		{
 			for (auto x = 0U; x < m_calculator.width(); ++x)
 			{
-				const auto iterations = field[y][x];
+				const auto iterations = field[m_y][x];
 
 				if (iterations == 0U || iterations == m_calculator.max_iterations())
 				{
-					m_image.setPixel(x, y, sf::Color::Black);
+					m_image.setPixel(x, m_y, sf::Color::Black);
 				}
 				else
 				{
-					m_image.setPixel(x, y, m_colors[iterations % m_colors.size()]);
+					m_image.setPixel(x, m_y, m_colors[iterations % m_colors.size()]);
 				}
 			}
 		}

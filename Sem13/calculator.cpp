@@ -39,21 +39,13 @@ void Calculator::calculate(const sf::Vector2f center, const float width, const f
 		{
 			for (auto x = 0U; x < m_width; ++x) 
 			{
-				std::complex < float > z(0.0f, 0.0f);
+				std::complex < float > z(center.y - height / 2.0f + dy * y, center.x - width / 2.0f + dx * x);
 
-#ifdef SPECIAL_CASE
 				std::complex<float> c(0.5f, -3.f);
-#else
-				std::complex < float > c(
-					center.y - height / 2.0f + dy * y,
-					center.x - width  / 2.0f + dx * x
-				);
-#endif
+
 				float R = (1 + sqrt(1 + 4 * std::abs(c))) / 2;
 				float RR = R * R;
-#ifdef MANDELBROT
-				RR = 4.0f;
-#endif
+
 
 				auto iteration = 0U;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "RandomGenerator.h"
+#include <exception>
 
 
 
@@ -13,68 +14,63 @@ enum Direction {
 
 class Player
 {
-private:
-	int x, y;
-	Direction dir;
-	sf::Color color;
-	int m_width;
-	int m_height;
 public:
-	Player(sf::Color c, int W, int H) : 
-		x(RandomGenerator(0, static_cast<int>(W - 1))()),
-		y(RandomGenerator(0, static_cast<int>(H - 1))()),
-		dir(static_cast<Direction>(RandomGenerator(0, 3)())),
-		color(c),
+	Player(sf::Color c, int W, int H, int x, int y) :
+		m_x(x),
+		m_y(y),
+		m_dir(static_cast<Direction>(RandomGenerator(0, 3)())),
+		m_color(c),
 		m_width(W),
 		m_height(H)
 	{}
-	auto getDir() {
-		return dir;
+	const auto getDir() const {
+		return m_dir;
 	}
-	void setDir(const Direction& newDir) {
-		dir = newDir;
+	void setDir(const Direction& newDir)  {
+		m_dir = newDir;
 	}
-	auto getX() {
-		return x;
+	const auto getX() const {
+		return m_x;
 	}
-	void setX(int newX) {
-		x = newX;
+	const auto getY() const {
+		return m_y;
 	}
-	auto getY() {
-		return y;
-	}
-	void setY(int newY) {
-		y = newY;
-	}
-	auto getColor() {
-		return color;
+	const auto getColor() const {
+		return m_color;
 	}
 	void tick()
 	{
-		switch (dir) {
+		switch (m_dir) {
 		case Direction::DOWN:
-			y += 1; break;
+			++m_y; break;
 		case Direction::UP:
-			y -= 1; break;
+			--m_y; break;
 		case Direction::LEFT:
-			x -= 1; break;
+			--m_x; break;
 		case Direction::RIGHT:
-			x += 1; break;
+			++m_x; break;
 		default:
 			throw std::exception("Illegal argument: unknown direction");
 		}
 
-		if (x >= m_width) {
-			x = 0;
+		if (m_x >= m_width) {
+			m_x = 0;
 		}
-		if (x < 0) {
-			x = m_width - 1;
+		if (m_x < 0) {
+			m_x = m_width - 1;
 		}
-		if (y >= m_height) {
-			y = 0;
+		if (m_y >= m_height) {
+			m_y = 0;
 		}
-		if (y < 0) {
-			y = m_height - 1;
+		if (m_y < 0) {
+			m_y = m_height - 1;
 		}
 	}
+
+private:
+	int m_x, m_y;
+	Direction m_dir;
+	sf::Color m_color;
+	int m_width;
+	int m_height;
 };

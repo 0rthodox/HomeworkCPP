@@ -17,9 +17,7 @@ int main()
 	sf::Texture texture;
 	texture.loadFromFile("Sem12/background.jpg");
 	sf::Sprite sBackground(texture);
-
-	Player p1(sf::Color::Red, tronconsts::W, tronconsts::H), p2(sf::Color::Green, tronconsts::W, tronconsts::H);
-
+	
 	sf::Sprite sprite;
 	sf::RenderTexture t;
 
@@ -48,13 +46,15 @@ int main()
 	boost::asio::ip::tcp::socket socket(io_service);
 	acceptor.accept(socket);
 
-	std::stringstream dataStream;
-	dataStream << static_cast<int>(p2.getX()) << ' ' << static_cast<int>(p2.getY()) << '\n';
-	boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
-	int newX, newY;
-	parseData(socket, newX, newY);
-	p1.setX(newX);
-	p1.setY(newY);
+	int newX1, newY1;
+	parseData(socket, newX1, newY1);
+	std::cout << newX1 << ' ' << newY1 << std::endl;
+	Player p1(sf::Color::Red, tronconsts::W, tronconsts::H, newX1, newY1);
+	int newX2, newY2;
+	parseData(socket, newX2, newY2);
+
+	std::cout << newX2 << ' ' << newY2 << std::endl;
+	Player p2(sf::Color::Green, tronconsts::W, tronconsts::H, newX2, newY2);
 
 #endif
 
