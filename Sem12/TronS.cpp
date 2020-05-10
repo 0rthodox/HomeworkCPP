@@ -23,7 +23,7 @@ int main()
 	RandomGenerator hGenerator(0, static_cast<int>(tronconsts::H - 1));
 
     Player p1(sf::Color::Red, tronconsts::W, tronconsts::H, wGenerator(), hGenerator()),
-		p2(sf::Color::Green, tronconsts::W, tronconsts::H, wGenerator(), hGenerator());
+	p2(sf::Color::Green, tronconsts::W, tronconsts::H, wGenerator(), hGenerator());
 
 	sf::Sprite sprite;
 	sf::RenderTexture t;
@@ -43,7 +43,7 @@ int main()
 	auto port = 3333;
 
 	boost::asio::ip::tcp::endpoint endpoint(
-		boost::asio::ip::address::from_string(ip), port);
+	boost::asio::ip::address::from_string(ip), port);
 	boost::asio::io_service io_service;
 	boost::asio::ip::tcp::socket socket(io_service, endpoint.protocol());
 	socket.connect(endpoint);
