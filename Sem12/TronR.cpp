@@ -11,25 +11,7 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(tronconsts::W, tronconsts::H), "Tron — Second Player");
-	window.setFramerateLimit(60);
-
-	sf::Texture texture;
-	texture.loadFromFile("Sem12/background.jpg");
-	sf::Sprite sBackground(texture);
 	
-	sf::Sprite sprite;
-	sf::RenderTexture t;
-
-	std::string winner;
-
-	t.create(tronconsts::W, tronconsts::H);
-	t.setSmooth(true);
-	sprite.setTexture(t.getTexture());
-	t.clear();
-	t.draw(sBackground);
-
-	auto status = GameStatus::GOES_ON;
 
 #ifdef ONLINE
 	auto port = 3333;
@@ -48,15 +30,14 @@ int main()
 
 	int newX1, newY1;
 	parseData(socket, newX1, newY1);
-	Player p1(sf::Color::Red, tronconsts::W, tronconsts::H, newX1, newY1);
+	Player p1(sf::Color::Red, Gameloop::W, Gameloop::H, newX1, newY1);
 	int newX2, newY2;
 	parseData(socket, newX2, newY2);
-		Player p2(sf::Color::Green, tronconsts::W, tronconsts::H, newX2, newY2);
+	Player p2(sf::Color::Green, Gameloop::W, Gameloop::H, newX2, newY2);
 
 #endif
 
-	auto iter = 0u;
-	Gameloop(window, sprite, p1, p2, t, socket)();
+	Gameloop(p1, p2, socket)();
 
 	return 0;
 }

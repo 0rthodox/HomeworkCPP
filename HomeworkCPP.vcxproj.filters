@@ -44,7 +44,7 @@
     <ClCompile Include="Sem13\visualizer.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="Sem13\main.cpp">
+    <ClCompile Include="Sem12\TronS.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

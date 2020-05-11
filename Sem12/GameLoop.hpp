@@ -2,6 +2,8 @@
 #include <boost/asio.hpp>
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "RandomGenerator.h"
+#include <utility>
 
 #define ONLINE
 
@@ -15,14 +17,6 @@ enum FieldStatus {
 	FIRST = 1,
 	SECOND = 2
 };
-
-namespace tronconsts {
-	constexpr int W = 600;
-	constexpr int H = 480;
-	int speed = 4;
-	FieldStatus field[W][H] = { FieldStatus::EMPTY };
-}
-
 
 template <typename Socket, typename Arg1, typename Arg2>
 void parseData(Socket& socket, Arg1& direction, Arg2& status)
@@ -41,21 +35,38 @@ class Gameloop {
 public:
 
 
-	Gameloop(sf::RenderWindow& window, sf::Sprite& sprite, Player& p1, Player& p2, sf::RenderTexture& t, boost::asio::ip::tcp::socket& socket) :
-		m_window(window), m_sprite(sprite), m_fPlayer(p1), m_sPlayer(p2), m_rTexture(t), m_socket(socket)
+	Gameloop(Player& p1, Player& p2, boost::asio::ip::tcp::socket& socket) :
+		m_fPlayer(p1), m_sPlayer(p2), m_socket(socket)
 	{
 	}
 
+
 	void operator()() {
+		sf::RenderWindow window(sf::VideoMode(W,H), "Tron — First Player");
+		window.setFramerateLimit(60);
+
+		sf::Texture texture;
+		texture.loadFromFile("Sem12/background.jpg");
+		sf::Sprite sBackground(texture);
+
+		sf::Sprite sprite;
+		sf::RenderTexture t;
+
+		t.create(W, H);
+		t.setSmooth(true);
+		sprite.setTexture(t.getTexture());
+		t.clear();
+		t.draw(sBackground);
+
 
 		auto status = GameStatus::GOES_ON;
 
-		while (m_window.isOpen()) {
+		while (window.isOpen()) {
 			sf::Event e;
-		while (m_window.pollEvent(e))
+		while (window.pollEvent(e))
 		{
 			if (e.type == sf::Event::Closed)
-				m_window.close();
+				window.close();
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && m_fPlayer.getDir() != Direction::RIGHT) {
@@ -93,37 +104,40 @@ public:
 			m_sPlayer.setDir(Direction::DOWN);
 		}
 #endif
-		for (int i = 0; i < tronconsts::speed; i++)
+		for (int i = 0; i < speed; i++)
 		{
 			m_fPlayer.tick();
 			m_sPlayer.tick();
-			if (tronconsts::field[m_fPlayer.getX()][m_fPlayer.getY()] != FieldStatus::EMPTY || tronconsts::field[m_sPlayer.getX()][m_sPlayer.getY()] != FieldStatus::EMPTY) {
+			if (m_field[m_fPlayer.getX()][m_fPlayer.getY()] != FieldStatus::EMPTY || m_field[m_sPlayer.getX()][m_sPlayer.getY()] != FieldStatus::EMPTY) {
 				status = GameStatus::STOPPED;
 			}
-			tronconsts::field[m_fPlayer.getX()][m_fPlayer.getY()] = FieldStatus::FIRST;
-			tronconsts::field[m_sPlayer.getX()][m_sPlayer.getY()] = FieldStatus::SECOND;
+			m_field[m_fPlayer.getX()][m_fPlayer.getY()] = FieldStatus::FIRST;
+			m_field[m_sPlayer.getX()][m_sPlayer.getY()] = FieldStatus::SECOND;
 
 			sf::CircleShape c(3);
 			c.setPosition(static_cast<float>(m_fPlayer.getX()), static_cast<float>(m_fPlayer.getY()));
 			c.setFillColor(m_fPlayer.getColor());
-			m_rTexture.draw(c);
+			t.draw(c);
 			c.setPosition(static_cast<float>(m_sPlayer.getX()), static_cast<float>(m_sPlayer.getY()));
 			c.setFillColor(m_sPlayer.getColor());
-			m_rTexture.draw(c);
-			m_rTexture.display();
+			t.draw(c);
+			t.display();
 		}
 
-		m_window.clear();
-		m_window.draw(m_sprite);
-		m_window.display();
+		window.clear();
+		window.draw(sprite);
+		window.display();
 	}
 }
-
+	static const int W = 600;
+	static const int H = 480;
 private:
-	sf::RenderWindow& m_window;
-	sf::Sprite& m_sprite;
+	
 	Player& m_fPlayer;
 	Player& m_sPlayer;
-	sf::RenderTexture& m_rTexture;
 	boost::asio::ip::tcp::socket& m_socket;
+	
+	int speed = 4;
+	FieldStatus m_field[W][H] = { FieldStatus::EMPTY };
+	
 };

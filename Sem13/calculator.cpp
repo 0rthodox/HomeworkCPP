@@ -41,9 +41,9 @@ void Calculator::calculate(const sf::Vector2f center, const float width, const f
 			{
 				std::complex < float > z(center.y - height / 2.0f + dy * y, center.x - width / 2.0f + dx * x);
 
-				std::complex<float> c(0.2f, -0.005f);
+				std::complex <float> c(-0.8f, 0.156f);
 
-				float R = (1 + sqrt(1 + 4 * std::abs(c))) / 2;
+				float R = (1 + sqrt(1 + 4 * std::abs(c))) / 2.0f;
 				float RR = R * R;
 
 
