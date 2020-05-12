@@ -15,10 +15,10 @@ enum Direction {
 class Player
 {
 public:
-	Player(sf::Color c, int W, int H, int x, int y) :
+	Player(sf::Color c, int W, int H, int x, int y, Direction D) :
 		m_x(x),
 		m_y(y),
-		m_dir(static_cast<Direction>(RandomGenerator(0, 3)())),
+		m_dir(D),
 		m_color(c),
 		m_width(W),
 		m_height(H)

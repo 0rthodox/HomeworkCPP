@@ -30,10 +30,12 @@ int main()
 
 	int newX1, newY1;
 	parseData(socket, newX1, newY1);
-	Player p1(sf::Color::Red, Gameloop::W, Gameloop::H, newX1, newY1);
 	int newX2, newY2;
 	parseData(socket, newX2, newY2);
-	Player p2(sf::Color::Green, Gameloop::W, Gameloop::H, newX2, newY2);
+	Direction d1, d2;
+	parseData(socket, d1, d2);
+	Player p1(sf::Color::Red, Gameloop::W, Gameloop::H, newX1, newY1, d1);
+	Player p2(sf::Color::Green, Gameloop::W, Gameloop::H, newX2, newY2, d2);
 
 #endif
 

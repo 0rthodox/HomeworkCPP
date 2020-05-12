@@ -13,8 +13,9 @@ int main()
 {
 	RandomGenerator wGenerator(0, Gameloop::W - 1);
 	RandomGenerator hGenerator(0, Gameloop::H - 1);
-	auto p1 = Player(sf::Color::Red, Gameloop::W, Gameloop::H, wGenerator(), hGenerator());
-	auto p2 = Player(sf::Color::Green, Gameloop::W, Gameloop::H, wGenerator(), hGenerator());
+	RandomGenerator dGenerator(0, 3);
+	auto p1 = Player(sf::Color::Red, Gameloop::W, Gameloop::H, wGenerator(), hGenerator(), static_cast<Direction>(dGenerator()));
+	auto p2 = Player(sf::Color::Green, Gameloop::W, Gameloop::H, wGenerator(), hGenerator(), static_cast<Direction>(dGenerator()));
 
 #ifdef ONLINE
 #ifdef LOCAL
@@ -40,6 +41,12 @@ int main()
 	{
 		std::stringstream dataStream;
 		dataStream << static_cast<int>(p2.getX()) << ' ' << static_cast<int>(p2.getY()) << '\n';
+		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
+
+	}
+	{
+		std::stringstream dataStream;
+		dataStream << static_cast<int>(p1.getDir()) << ' ' << static_cast<int>(p2.getDir()) << '\n';
 		boost::asio::write(socket, boost::asio::buffer(dataStream.str()));
 
 	}
