@@ -39,7 +39,7 @@ int main()
 
 #endif
 
-	Gameloop(p1, p2, socket)();
+	Gameloop(p2, p1, socket)();
 
 	return 0;
 }

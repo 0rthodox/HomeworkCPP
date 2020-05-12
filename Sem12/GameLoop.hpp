@@ -42,7 +42,7 @@ public:
 
 
 	void operator()() {
-		sf::RenderWindow window(sf::VideoMode(W,H), "Tron — First Player");
+		sf::RenderWindow window(sf::VideoMode(W,H), "Tron");
 		window.setFramerateLimit(60);
 
 		sf::Texture texture;
