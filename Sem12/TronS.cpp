@@ -7,7 +7,7 @@
 #include "Player.hpp"
 #include "GameLoop.hpp"
 
-#define LOCAL
+//#define LOCAL
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
 #else
 	std::string ip = "93.175.5.75";
 #endif
-	auto port = 3333;
+	auto port = 8000;
 
 	boost::asio::ip::tcp::endpoint endpoint(
 		boost::asio::ip::address::from_string(ip), port);

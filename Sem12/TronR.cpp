@@ -14,7 +14,7 @@ int main()
 	
 
 #ifdef ONLINE
-	auto port = 3333;
+	auto port = 8000;
 #ifdef SPECIFIC_CLIENT
 	std::string ip = "93.175.5.75";
 	boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address::from_string(ip), port);
