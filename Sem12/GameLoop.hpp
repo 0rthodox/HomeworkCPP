@@ -133,8 +133,8 @@ public:
 	static const int H = 480;
 
 private:	
-	Player& m_fPlayer;
-	Player& m_sPlayer;
+	Player m_fPlayer;
+	Player m_sPlayer;
 	boost::asio::ip::tcp::socket& m_socket;
 	
 	int speed = 4;
